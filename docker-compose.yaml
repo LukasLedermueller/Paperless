@@ -1,3 +1,7 @@
 services:
-  hello_world:
-    image: hello-world
+  paperless-rest:
+    build:
+      context: ./PaperlessREST
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
