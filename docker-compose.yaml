@@ -1,6 +1,4 @@
 services:
-  hello_world:
-    image: hello-world
   paperless-rest:
     build:
       context: ./PaperlessREST
