@@ -422,7 +422,7 @@ public interface ApiApi {
 
 
     /**
-     * POST /api/ui_settings
+     * POST /api/ui_settings/
      *
      * @param createUISettingsRequest  (optional)
      * @return Success (status code 200)
@@ -438,7 +438,7 @@ public interface ApiApi {
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/api/ui_settings",
+        value = "/api/ui_settings/",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
@@ -1290,13 +1290,14 @@ public interface ApiApi {
     default ResponseEntity<Void> getToken(
         @Parameter(name = "UserInfo", description = "") @Valid @RequestBody(required = false) UserInfo userInfo
     ) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        //todo
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 
 
     /**
-     * GET /api/ui_settings
+     * GET /api/ui_settings/
      *
      * @return Success (status code 200)
      */
@@ -1311,7 +1312,7 @@ public interface ApiApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/ui_settings",
+        value = "/api/ui_settings/",
         produces = { "application/json" }
     )
     default ResponseEntity<GetUISettings200Response> getUISettings(
@@ -1326,7 +1327,8 @@ public interface ApiApi {
                 }
             }
         });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        //todo
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 

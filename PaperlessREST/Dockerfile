@@ -1,20 +1,21 @@
-# Fetching latest version of Java
-FROM amazoncorretto:17-alpine-jdk
+# BUILD
+FROM maven:3.9.4-amazoncorretto-17 AS build
 
-# Set the working directory to /app
-WORKDIR /app
-
-# Install Maven (if not already installed)
-RUN apk --no-cache add maven
-
-# Copy the application source code into the container
-COPY . /app
+# Copy the application source code and pom file into the container
+COPY src /home/app/src
+COPY pom.xml /home/app
 
 # Build the application
-RUN mvn package
+RUN mvn -f /home/app/pom.xml clean package
 
-# Expose the port that your application will run on (replace 8080 with your application's port if necessary)
+# RUN
+FROM amazoncorretto:17-alpine-jdk
+
+# copy jar file
+COPY --from=build /home/app/target/paperless-rest-1.0.jar /usr/local/lib/paperless-rest.jar
+
+# Expose the port that your application will run on
 EXPOSE 8080
 
 # Define the command to run your Spring Boot application
-CMD ["java", "-jar", "target/openapi-spring-1.0.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/paperless-rest.jar"]
