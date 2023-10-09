@@ -2,7 +2,7 @@ FROM nginx
 
 COPY ./static /usr/share/nginx/html
 
-COPY cors.conf /etc/nginx/conf.d/cors.conf
+COPY custom.conf /etc/nginx/conf.d/custom.conf
 
 RUN chown -R nginx /usr/share/nginx/html
 
