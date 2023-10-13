@@ -20,7 +20,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("GetDocuments_200_response_results_inner_notes_inner")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-09-25T10:10:40.571770Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-09T11:20:43.687138Z[Etc/UTC]")
 public class GetDocuments200ResponseResultsInnerNotesInner {
 
   private Integer id;

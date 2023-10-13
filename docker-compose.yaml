@@ -3,8 +3,12 @@ services:
     build:
       context: ./PaperlessREST
       dockerfile: Dockerfile
-    image: paperless-rest
     ports:
-      - 8080:8080
-    container_name: paperless-rest
-    # todo new build when changes happened
+      - 8081:8081
+
+  paperless-ui:
+    build:
+      context: ./PaperlessNginxUi
+      dockerfile: Dockerfile
+    ports:
+      - 80:80

@@ -21,12 +21,12 @@ import jakarta.annotation.Generated;
  * NewDocumentType
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-09-25T10:10:40.571770Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-09T11:20:43.687138Z[Etc/UTC]")
 public class NewDocumentType {
 
-  private JsonNullable<String> name = JsonNullable.undefined();
+  private JsonNullable<String> name = JsonNullable.<String>undefined();
 
-  private JsonNullable<String> match = JsonNullable.undefined();
+  private JsonNullable<String> match = JsonNullable.<String>undefined();
 
   private Long matchingAlgorithm;
 

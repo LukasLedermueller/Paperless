@@ -24,7 +24,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("UpdateGroup_request")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-09-25T10:10:40.571770Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-09T11:20:43.687138Z[Etc/UTC]")
 public class UpdateGroupRequest {
 
   private Integer id;
@@ -117,11 +117,11 @@ public class UpdateGroupRequest {
   public List<String> getPermissions() {
     return permissions;
   }
-
-  // todo
-  /* public void setPermissions(List<String> permissions) {
+  /*
+  public void setPermissions(List<String> permissions) {
     this.permissions = permissions;
-  } */
+  }
+  */
 
   public UpdateGroupRequest setPermissions(List<String> setPermissions) {
     this.setPermissions = setPermissions;
