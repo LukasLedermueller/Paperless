@@ -5,7 +5,7 @@ info:
 servers:
 - url: /
 paths:
-  /api/correspondents:
+  /api/correspondents/:
     get:
       operationId: GetCorrespondents
       parameters:
@@ -78,7 +78,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Correspondents
-  /api/correspondents/{id}:
+  /api/correspondents/{id}/:
     delete:
       operationId: DeleteCorrespondent
       parameters:
@@ -143,7 +143,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Correspondents
-  /api/documents:
+  /api/documents/:
     get:
       operationId: GetDocuments
       parameters:
@@ -244,7 +244,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Documents
-  /api/documents/{id}:
+  /api/documents/{id}/:
     delete:
       operationId: DeleteDocument
       parameters:
@@ -575,7 +575,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Documents
-  /api/documents/post_document:
+  /api/documents/post_document/:
     post:
       operationId: UploadDocument
       requestBody:
@@ -605,7 +605,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Documents
-  /api/documents/bulk_edit:
+  /api/documents/bulk_edit/:
     post:
       operationId: BulkEdit
       requestBody:
@@ -626,7 +626,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Documents
-  /api/documents/selection_data:
+  /api/documents/selection_data/:
     post:
       operationId: SelectionData
       requestBody:
@@ -656,7 +656,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Documents
-  /api/documents/{id}/suggestions:
+  /api/documents/{id}/suggestions/:
     get:
       operationId: GetDocumentSuggestions
       parameters:
@@ -684,7 +684,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Documents
-  /api/documents/{id}/thumb:
+  /api/documents/{id}/thumb/:
     get:
       operationId: GetDocumentThumb
       parameters:
@@ -709,7 +709,7 @@ paths:
       x-accepts: application/pdf
       x-tags:
       - tag: Documents
-  /api/documents/{id}/download:
+  /api/documents/{id}/download/:
     get:
       operationId: DownloadDocument
       parameters:
@@ -741,7 +741,7 @@ paths:
       x-accepts: application/pdf
       x-tags:
       - tag: Documents
-  /api/documents/{id}/preview:
+  /api/documents/{id}/preview/:
     get:
       operationId: GetDocumentPreview
       parameters:
@@ -766,7 +766,7 @@ paths:
       x-accepts: application/pdf
       x-tags:
       - tag: Documents
-  /api/documents/{id}/metadata:
+  /api/documents/{id}/metadata/:
     get:
       operationId: GetDocumentMetadata
       parameters:
@@ -820,7 +820,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Documents
-  /api/document_types:
+  /api/document_types/:
     get:
       operationId: GetDocumentTypes
       parameters:
@@ -891,7 +891,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: DocumentTypes
-  /api/document_types/{id}:
+  /api/document_types/{id}/:
     delete:
       operationId: DeleteDocumentType
       parameters:
@@ -955,7 +955,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: DocumentTypes
-  /api:
+  /api/:
     get:
       responses:
         "200":
@@ -975,7 +975,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Login
-  /api/statistics:
+  /api/statistics/:
     get:
       operationId: Statistics
       responses:
@@ -995,7 +995,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Login
-  /api/token:
+  /api/token/:
     post:
       operationId: GetToken
       requestBody:
@@ -1018,7 +1018,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Login
-  /api/groups:
+  /api/groups/:
     get:
       operationId: GetGroups
       parameters:
@@ -1112,7 +1112,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Login
-  /api/groups/{id}:
+  /api/groups/{id}/:
     delete:
       operationId: DeleteGroup
       parameters:
@@ -1231,7 +1231,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Login
-  /api/users:
+  /api/users/:
     get:
       operationId: GetUsers
       parameters:
@@ -1397,7 +1397,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Login
-  /api/users/{id}:
+  /api/users/{id}/:
     delete:
       operationId: DeleteUser
       parameters:
@@ -1554,7 +1554,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Login
-  /api/search/autocomplete:
+  /api/search/autocomplete/:
     get:
       operationId: AutoComplete
       parameters:
@@ -1590,7 +1590,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Search
-  /api/tags:
+  /api/tags/:
     get:
       operationId: GetTags
       parameters:
@@ -1666,7 +1666,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Tags
-  /api/tags/{id}:
+  /api/tags/{id}/:
     delete:
       operationId: DeleteTag
       parameters:
@@ -1732,7 +1732,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Tags
-  /api/tasks:
+  /api/tasks/:
     get:
       operationId: GetTasks
       responses:
@@ -1757,7 +1757,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Tasks
-  /api/acknowledge_tasks:
+  /api/acknowledge_tasks/:
     post:
       operationId: AckTasks
       requestBody:
@@ -1784,7 +1784,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Tasks
-  /api/saved_views:
+  /api/saved_views/:
     get:
       operationId: GetSavedViews
       parameters:
@@ -1899,7 +1899,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Config
-  /api/storage_paths:
+  /api/storage_paths/:
     get:
       operationId: GetStoragePaths
       parameters:
@@ -1967,7 +1967,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Config
-  /api/storage_paths/{id}:
+  /api/storage_paths/{id}/:
     delete:
       operationId: DeleteStoragePath
       parameters:
@@ -2032,7 +2032,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Config
-  /api/logs:
+  /api/logs/:
     get:
       operationId: GetLogs
       responses:
@@ -2052,7 +2052,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Config
-  /api/logs/{id}:
+  /api/logs/{id}/:
     get:
       operationId: GetLog
       parameters:
@@ -2150,7 +2150,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Config
-  /api/ui_settings:
+  /api/ui_settings/:
     get:
       operationId: GetUISettings
       responses:
@@ -2238,7 +2238,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Config
-  /ws/status:
+  /ws/status/:
     get:
       operationId: Get
       responses:

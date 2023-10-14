@@ -25,23 +25,23 @@ import jakarta.annotation.Generated;
  * Document
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-09-25T10:10:40.571770Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-09T11:20:43.687138Z[Etc/UTC]")
 public class Document {
 
   private Integer id;
 
-  private JsonNullable<Integer> correspondent = JsonNullable.undefined();
+  private JsonNullable<Integer> correspondent = JsonNullable.<Integer>undefined();
 
-  private JsonNullable<Integer> documentType = JsonNullable.undefined();
+  private JsonNullable<Integer> documentType = JsonNullable.<Integer>undefined();
 
-  private JsonNullable<Integer> storagePath = JsonNullable.undefined();
+  private JsonNullable<Integer> storagePath = JsonNullable.<Integer>undefined();
 
-  private JsonNullable<String> title = JsonNullable.undefined();
+  private JsonNullable<String> title = JsonNullable.<String>undefined();
 
-  private JsonNullable<String> content = JsonNullable.undefined();
+  private JsonNullable<String> content = JsonNullable.<String>undefined();
 
   @Valid
-  private JsonNullable<List<Integer>> tags = JsonNullable.undefined();
+  private JsonNullable<List<Integer>> tags = JsonNullable.<List<Integer>>undefined();
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime created;
@@ -55,11 +55,11 @@ public class Document {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime added;
 
-  private JsonNullable<String> archiveSerialNumber = JsonNullable.undefined();
+  private JsonNullable<String> archiveSerialNumber = JsonNullable.<String>undefined();
 
-  private JsonNullable<String> originalFileName = JsonNullable.undefined();
+  private JsonNullable<String> originalFileName = JsonNullable.<String>undefined();
 
-  private JsonNullable<String> archivedFileName = JsonNullable.undefined();
+  private JsonNullable<String> archivedFileName = JsonNullable.<String>undefined();
 
   public Document id(Integer id) {
     this.id = id;

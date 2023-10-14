@@ -24,7 +24,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("UpdateDocument_request")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-09-25T10:10:40.571770Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-09T11:20:43.687138Z[Etc/UTC]")
 public class UpdateDocumentRequest {
 
   private Integer id;
@@ -393,11 +393,11 @@ public class UpdateDocumentRequest {
   public GetCorrespondents200ResponseResultsInnerPermissions getPermissions() {
     return permissions;
   }
-
-  // todo
-  /* public void setPermissions(GetCorrespondents200ResponseResultsInnerPermissions permissions) {
+  /*
+  public void setPermissions(GetCorrespondents200ResponseResultsInnerPermissions permissions) {
     this.permissions = permissions;
-  } */
+  }
+ */
 
   public UpdateDocumentRequest notes(List<Object> notes) {
     this.notes = notes;
