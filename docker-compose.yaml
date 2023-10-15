@@ -8,7 +8,7 @@ services:
 
   paperless-ui:
     build:
-      context: ./PaperlessNginxUi
+      context: ./PaperlessNgx
       dockerfile: Dockerfile
     ports:
       - 80:80
