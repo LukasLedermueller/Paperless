@@ -2,3 +2,6 @@
 */.idea/*
 !.idea/runConfigurations
 */target
+*/node_modules
+*/.angular
+*/dist
