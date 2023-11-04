@@ -244,4 +244,29 @@ public class DocumentsDocument {
         this.documentDocumentsDocumentTagses = documentDocumentsDocumentTagses;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsDocument{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", created=" + created +
+                ", modified=" + modified +
+                ", checksum='" + checksum + '\'' +
+                ", added=" + added +
+                ", storageType='" + storageType + '\'' +
+                ", filename='" + filename + '\'' +
+                ", archiveSerialNumber=" + archiveSerialNumber +
+                ", mimeType='" + mimeType + '\'' +
+                ", archiveChecksum='" + archiveChecksum + '\'' +
+                ", archiveFilename='" + archiveFilename + '\'' +
+                ", originalFilename='" + originalFilename + '\'' +
+                ", correspondent=" + correspondent +
+                ", documentType=" + documentType +
+                ", storagePath=" + storagePath +
+                ", owner=" + owner +
+                ", documentDocumentsNotes=" + documentDocumentsNotes +
+                ", documentDocumentsDocumentTagses=" + documentDocumentsDocumentTagses +
+                '}';
+    }
 }
