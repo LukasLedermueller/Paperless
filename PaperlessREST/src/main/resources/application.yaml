@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://paperless-persistence:5432/paperless
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  jackson:
+    date-format: 'at.fhtw.swkom.paperless.services.RFC3339DateFormat'
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
