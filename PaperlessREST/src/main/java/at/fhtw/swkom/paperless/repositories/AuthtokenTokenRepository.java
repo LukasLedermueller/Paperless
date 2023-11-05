@@ -1,6 +1,6 @@
 package at.fhtw.swkom.paperless.repositories;
 
-import at.fhtw.swkom.paperless.models.AuthtokenToken;
+import at.fhtw.swkom.paperless.entities.AuthtokenToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

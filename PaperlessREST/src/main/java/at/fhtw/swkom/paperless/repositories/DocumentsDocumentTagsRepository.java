@@ -1,6 +1,6 @@
 package at.fhtw.swkom.paperless.repositories;
 
-import at.fhtw.swkom.paperless.models.DocumentsDocumentTags;
+import at.fhtw.swkom.paperless.entities.DocumentsDocumentTags;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

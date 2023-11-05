@@ -1,7 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -74,4 +75,27 @@ public class DocumentsLog {
         this.created = created;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsLog{" + "\n" +
+                "    id=" + id + "\n" +
+                "    group=" + group + "\n" +
+                "    message='" + message + '\'' + "\n" +
+                "    level=" + level + "\n" +
+                "    created=" + created + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsLog that = (DocumentsLog) o;
+        return Objects.equals(id, that.id) && Objects.equals(group, that.group) && Objects.equals(message, that.message) && Objects.equals(level, that.level) && Objects.equals(created, that.created);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, group, message, level, created);
+    }
 }

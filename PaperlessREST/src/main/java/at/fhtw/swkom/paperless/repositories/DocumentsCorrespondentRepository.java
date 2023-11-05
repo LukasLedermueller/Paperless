@@ -1,6 +1,6 @@
 package at.fhtw.swkom.paperless.repositories;
 
-import at.fhtw.swkom.paperless.models.DocumentsCorrespondent;
+import at.fhtw.swkom.paperless.entities.DocumentsCorrespondent;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

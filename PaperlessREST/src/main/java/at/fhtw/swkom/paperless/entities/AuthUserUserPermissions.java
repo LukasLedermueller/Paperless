@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 public class AuthUserUserPermissions {
@@ -51,4 +53,25 @@ public class AuthUserUserPermissions {
         this.permission = permission;
     }
 
+    @Override
+    public String toString() {
+        return "AuthUserUserPermissions{" + "\n" +
+                "    id=" + id + "\n" +
+                "    user=" + user + "\n" +
+                "    permission=" + permission + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthUserUserPermissions that = (AuthUserUserPermissions) o;
+        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(permission, that.permission);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, permission);
+    }
 }

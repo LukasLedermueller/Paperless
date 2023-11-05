@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -108,4 +110,30 @@ public class DocumentsSavedview {
         this.savedViewDocumentsSavedviewfilterrules = savedViewDocumentsSavedviewfilterrules;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsSavedview{" + "\n" +
+                "    id=" + id + "\n" +
+                "    name='" + name + '\'' + "\n" +
+                "    showOnDashboard=" + showOnDashboard + "\n" +
+                "    showInSidebar=" + showInSidebar + "\n" +
+                "    sortField='" + sortField + '\'' + "\n" +
+                "    sortReverse=" + sortReverse + "\n" +
+                "    owner=" + owner + "\n" +
+                "    savedViewDocumentsSavedviewfilterrules=" + savedViewDocumentsSavedviewfilterrules + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsSavedview that = (DocumentsSavedview) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(showOnDashboard, that.showOnDashboard) && Objects.equals(showInSidebar, that.showInSidebar) && Objects.equals(sortField, that.sortField) && Objects.equals(sortReverse, that.sortReverse) && Objects.equals(owner, that.owner) && Objects.equals(savedViewDocumentsSavedviewfilterrules, that.savedViewDocumentsSavedviewfilterrules);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, showOnDashboard, showInSidebar, sortField, sortReverse, owner, savedViewDocumentsSavedviewfilterrules);
+    }
 }

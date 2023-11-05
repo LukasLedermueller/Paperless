@@ -1,8 +1,9 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 
 @Entity
@@ -53,4 +54,25 @@ public class AuthtokenToken {
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "AuthtokenToken{" + "\n" +
+                "    id=" + id + "\n" +
+                "    created=" + created + "\n" +
+                "    user=" + user + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthtokenToken that = (AuthtokenToken) o;
+        return Objects.equals(id, that.id) && Objects.equals(created, that.created) && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, created, user);
+    }
 }

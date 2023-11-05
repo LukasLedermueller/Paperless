@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 @Mapper
-public interface JsonNullableMapper {
+public interface BaseMapper {
     default <T> JsonNullable<T> map(T entity) {
         return JsonNullable.of(entity);
     }

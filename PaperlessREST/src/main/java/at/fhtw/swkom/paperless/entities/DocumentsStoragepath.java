@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -108,4 +110,30 @@ public class DocumentsStoragepath {
         this.storagePathDocumentsDocuments = storagePathDocumentsDocuments;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsStoragepath{" + "\n" +
+                "    id=" + id + "\n" +
+                "    name='" + name + '\'' + "\n" +
+                "    match='" + match + '\'' + "\n" +
+                "    matchingAlgorithm=" + matchingAlgorithm + "\n" +
+                "    isInsensitive=" + isInsensitive + "\n" +
+                "    path='" + path + '\'' + "\n" +
+                "    owner=" + owner + "\n" +
+                "    storagePathDocumentsDocuments=" + storagePathDocumentsDocuments + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsStoragepath that = (DocumentsStoragepath) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(match, that.match) && Objects.equals(matchingAlgorithm, that.matchingAlgorithm) && Objects.equals(isInsensitive, that.isInsensitive) && Objects.equals(path, that.path) && Objects.equals(owner, that.owner) && Objects.equals(storagePathDocumentsDocuments, that.storagePathDocumentsDocuments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, match, matchingAlgorithm, isInsensitive, path, owner, storagePathDocumentsDocuments);
+    }
 }

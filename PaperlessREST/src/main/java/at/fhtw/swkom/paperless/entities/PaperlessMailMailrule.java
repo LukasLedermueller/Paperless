@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -266,4 +268,44 @@ public class PaperlessMailMailrule {
         this.mailrulePaperlessMailMailruleAssignTagses = mailrulePaperlessMailMailruleAssignTagses;
     }
 
+    @Override
+    public String toString() {
+        return "PaperlessMailMailrule{" + "\n" +
+                "    id=" + id + "\n" +
+                "    name='" + name + '\'' + "\n" +
+                "    folder='" + folder + '\'' + "\n" +
+                "    filterFrom='" + filterFrom + '\'' + "\n" +
+                "    filterSubject='" + filterSubject + '\'' + "\n" +
+                "    filterBody='" + filterBody + '\'' + "\n" +
+                "    maximumAge=" + maximumAge + "\n" +
+                "    action=" + action + "\n" +
+                "    actionParameter='" + actionParameter + '\'' + "\n" +
+                "    assignTitleFrom=" + assignTitleFrom + "\n" +
+                "    assignCorrespondentFrom=" + assignCorrespondentFrom + "\n" +
+                "    order=" + order + "\n" +
+                "    attachmentType=" + attachmentType + "\n" +
+                "    filterAttachmentFilename='" + filterAttachmentFilename + '\'' + "\n" +
+                "    consumptionScope=" + consumptionScope + "\n" +
+                "    filterTo='" + filterTo + '\'' + "\n" +
+                "    account=" + account + "\n" +
+                "    assignCorrespondent=" + assignCorrespondent + "\n" +
+                "    assignDocumentType=" + assignDocumentType + "\n" +
+                "    owner=" + owner + "\n" +
+                "    rulePaperlessMailProcessedmails=" + rulePaperlessMailProcessedmails + "\n" +
+                "    mailrulePaperlessMailMailruleAssignTagses=" + mailrulePaperlessMailMailruleAssignTagses + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaperlessMailMailrule that = (PaperlessMailMailrule) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(folder, that.folder) && Objects.equals(filterFrom, that.filterFrom) && Objects.equals(filterSubject, that.filterSubject) && Objects.equals(filterBody, that.filterBody) && Objects.equals(maximumAge, that.maximumAge) && Objects.equals(action, that.action) && Objects.equals(actionParameter, that.actionParameter) && Objects.equals(assignTitleFrom, that.assignTitleFrom) && Objects.equals(assignCorrespondentFrom, that.assignCorrespondentFrom) && Objects.equals(order, that.order) && Objects.equals(attachmentType, that.attachmentType) && Objects.equals(filterAttachmentFilename, that.filterAttachmentFilename) && Objects.equals(consumptionScope, that.consumptionScope) && Objects.equals(filterTo, that.filterTo) && Objects.equals(account, that.account) && Objects.equals(assignCorrespondent, that.assignCorrespondent) && Objects.equals(assignDocumentType, that.assignDocumentType) && Objects.equals(owner, that.owner) && Objects.equals(rulePaperlessMailProcessedmails, that.rulePaperlessMailProcessedmails) && Objects.equals(mailrulePaperlessMailMailruleAssignTagses, that.mailrulePaperlessMailMailruleAssignTagses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, folder, filterFrom, filterSubject, filterBody, maximumAge, action, actionParameter, assignTitleFrom, assignCorrespondentFrom, order, attachmentType, filterAttachmentFilename, consumptionScope, filterTo, account, assignCorrespondent, assignDocumentType, owner, rulePaperlessMailProcessedmails, mailrulePaperlessMailMailruleAssignTagses);
+    }
 }

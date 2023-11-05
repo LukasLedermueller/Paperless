@@ -1,8 +1,9 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -303,5 +304,47 @@ public class AuthUser {
             final Set<PaperlessMailProcessedmail> ownerPaperlessMailProcessedmails) {
         this.ownerPaperlessMailProcessedmails = ownerPaperlessMailProcessedmails;
     }
+    @Override
+    public String toString() {
+        return "AuthUser{" + "\n" +
+                "    id=" + id + "\n" +
+                "    password='" + password + '\'' + "\n" +
+                "    lastLogin=" + lastLogin + "\n" +
+                "    isSuperuser=" + isSuperuser + "\n" +
+                "    username='" + username + '\'' + "\n" +
+                "    firstName='" + firstName + '\'' + "\n" +
+                "    lastName='" + lastName + '\'' + "\n" +
+                "    email='" + email + '\'' + "\n" +
+                "    isStaff=" + isStaff + "\n" +
+                "    isActive=" + isActive + "\n" +
+                "    dateJoined=" + dateJoined + "\n" +
+                "    userAuthUserGroupses=" + userAuthUserGroupses + "\n" +
+                "    ownerDocumentsCorrespondents=" + ownerDocumentsCorrespondents + "\n" +
+                "    ownerDocumentsDocumenttypes=" + ownerDocumentsDocumenttypes + "\n" +
+                "    ownerDocumentsStoragepaths=" + ownerDocumentsStoragepaths + "\n" +
+                "    ownerDocumentsTags=" + ownerDocumentsTags + "\n" +
+                "    userDocumentsUisettingses=" + userDocumentsUisettingses + "\n" +
+                "    ownerDocumentsSavedviews=" + ownerDocumentsSavedviews + "\n" +
+                "    ownerPaperlessMailMailaccounts=" + ownerPaperlessMailMailaccounts + "\n" +
+                "    ownerDocumentsDocuments=" + ownerDocumentsDocuments + "\n" +
+                "    userDocumentsNotes=" + userDocumentsNotes + "\n" +
+                "    ownerPaperlessMailMailrules=" + ownerPaperlessMailMailrules + "\n" +
+                "    userAuthUserUserPermissionses=" + userAuthUserUserPermissionses + "\n" +
+                "    userAuthtokenTokens=" + userAuthtokenTokens + "\n" +
+                "    ownerPaperlessMailProcessedmails=" + ownerPaperlessMailProcessedmails + "\n" +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthUser authUser = (AuthUser) o;
+        return Objects.equals(id, authUser.id) && Objects.equals(password, authUser.password) && Objects.equals(lastLogin, authUser.lastLogin) && Objects.equals(isSuperuser, authUser.isSuperuser) && Objects.equals(username, authUser.username) && Objects.equals(firstName, authUser.firstName) && Objects.equals(lastName, authUser.lastName) && Objects.equals(email, authUser.email) && Objects.equals(isStaff, authUser.isStaff) && Objects.equals(isActive, authUser.isActive) && Objects.equals(dateJoined, authUser.dateJoined) && Objects.equals(userAuthUserGroupses, authUser.userAuthUserGroupses) && Objects.equals(ownerDocumentsCorrespondents, authUser.ownerDocumentsCorrespondents) && Objects.equals(ownerDocumentsDocumenttypes, authUser.ownerDocumentsDocumenttypes) && Objects.equals(ownerDocumentsStoragepaths, authUser.ownerDocumentsStoragepaths) && Objects.equals(ownerDocumentsTags, authUser.ownerDocumentsTags) && Objects.equals(userDocumentsUisettingses, authUser.userDocumentsUisettingses) && Objects.equals(ownerDocumentsSavedviews, authUser.ownerDocumentsSavedviews) && Objects.equals(ownerPaperlessMailMailaccounts, authUser.ownerPaperlessMailMailaccounts) && Objects.equals(ownerDocumentsDocuments, authUser.ownerDocumentsDocuments) && Objects.equals(userDocumentsNotes, authUser.userDocumentsNotes) && Objects.equals(ownerPaperlessMailMailrules, authUser.ownerPaperlessMailMailrules) && Objects.equals(userAuthUserUserPermissionses, authUser.userAuthUserUserPermissionses) && Objects.equals(userAuthtokenTokens, authUser.userAuthtokenTokens) && Objects.equals(ownerPaperlessMailProcessedmails, authUser.ownerPaperlessMailProcessedmails);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, password, lastLogin, isSuperuser, username, firstName, lastName, email, isStaff, isActive, dateJoined, userAuthUserGroupses, ownerDocumentsCorrespondents, ownerDocumentsDocumenttypes, ownerDocumentsStoragepaths, ownerDocumentsTags, userDocumentsUisettingses, ownerDocumentsSavedviews, ownerPaperlessMailMailaccounts, ownerDocumentsDocuments, userDocumentsNotes, ownerPaperlessMailMailrules, userAuthUserUserPermissionses, userAuthtokenTokens, ownerPaperlessMailProcessedmails);
+    }
 }

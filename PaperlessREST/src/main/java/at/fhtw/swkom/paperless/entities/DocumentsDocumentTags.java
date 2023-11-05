@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 public class DocumentsDocumentTags {
@@ -51,4 +53,25 @@ public class DocumentsDocumentTags {
         this.tag = tag;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsDocumentTags{" + "\n" +
+                "    id=" + id + "\n" +
+                "    document=" + document + "\n" +
+                "    tag=" + tag + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsDocumentTags that = (DocumentsDocumentTags) o;
+        return Objects.equals(id, that.id) && Objects.equals(document, that.document) && Objects.equals(tag, that.tag);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, document, tag);
+    }
 }

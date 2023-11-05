@@ -1,7 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -243,30 +244,42 @@ public class DocumentsDocument {
             final Set<DocumentsDocumentTags> documentDocumentsDocumentTagses) {
         this.documentDocumentsDocumentTagses = documentDocumentsDocumentTagses;
     }
-
     @Override
     public String toString() {
-        return "DocumentsDocument{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", created=" + created +
-                ", modified=" + modified +
-                ", checksum='" + checksum + '\'' +
-                ", added=" + added +
-                ", storageType='" + storageType + '\'' +
-                ", filename='" + filename + '\'' +
-                ", archiveSerialNumber=" + archiveSerialNumber +
-                ", mimeType='" + mimeType + '\'' +
-                ", archiveChecksum='" + archiveChecksum + '\'' +
-                ", archiveFilename='" + archiveFilename + '\'' +
-                ", originalFilename='" + originalFilename + '\'' +
-                ", correspondent=" + correspondent +
-                ", documentType=" + documentType +
-                ", storagePath=" + storagePath +
-                ", owner=" + owner +
-                ", documentDocumentsNotes=" + documentDocumentsNotes +
-                ", documentDocumentsDocumentTagses=" + documentDocumentsDocumentTagses +
+        return "DocumentsDocument{" + "\n" +
+                "    id=" + id + "\n" +
+                "    title='" + title + '\'' + "\n" +
+                "    content='" + content + '\'' + "\n" +
+                "    created=" + created + "\n" +
+                "    modified=" + modified + "\n" +
+                "    checksum='" + checksum + '\'' + "\n" +
+                "    added=" + added + "\n" +
+                "    storageType='" + storageType + '\'' + "\n" +
+                "    filename='" + filename + '\'' + "\n" +
+                "    archiveSerialNumber=" + archiveSerialNumber + "\n" +
+                "    mimeType='" + mimeType + '\'' + "\n" +
+                "    archiveChecksum='" + archiveChecksum + '\'' + "\n" +
+                "    archiveFilename='" + archiveFilename + '\'' + "\n" +
+                "    originalFilename='" + originalFilename + '\'' + "\n" +
+                "    correspondent=" + correspondent + "\n" +
+                "    documentType=" + documentType + "\n" +
+                "    storagePath=" + storagePath + "\n" +
+                "    owner=" + owner + "\n" +
+                "    documentDocumentsNotes=" + documentDocumentsNotes + "\n" +
+                "    documentDocumentsDocumentTagses=" + documentDocumentsDocumentTagses + "\n" +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsDocument that = (DocumentsDocument) o;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(created, that.created) && Objects.equals(modified, that.modified) && Objects.equals(checksum, that.checksum) && Objects.equals(added, that.added) && Objects.equals(storageType, that.storageType) && Objects.equals(filename, that.filename) && Objects.equals(archiveSerialNumber, that.archiveSerialNumber) && Objects.equals(mimeType, that.mimeType) && Objects.equals(archiveChecksum, that.archiveChecksum) && Objects.equals(archiveFilename, that.archiveFilename) && Objects.equals(originalFilename, that.originalFilename) && Objects.equals(correspondent, that.correspondent) && Objects.equals(documentType, that.documentType) && Objects.equals(storagePath, that.storagePath) && Objects.equals(owner, that.owner) && Objects.equals(documentDocumentsNotes, that.documentDocumentsNotes) && Objects.equals(documentDocumentsDocumentTagses, that.documentDocumentsDocumentTagses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, content, created, modified, checksum, added, storageType, filename, archiveSerialNumber, mimeType, archiveChecksum, archiveFilename, originalFilename, correspondent, documentType, storagePath, owner, documentDocumentsNotes, documentDocumentsDocumentTagses);
     }
 }

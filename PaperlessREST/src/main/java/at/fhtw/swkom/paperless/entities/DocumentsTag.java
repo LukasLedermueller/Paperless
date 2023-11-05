@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -131,4 +133,32 @@ public class DocumentsTag {
         this.tagPaperlessMailMailruleAssignTagses = tagPaperlessMailMailruleAssignTagses;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsTag{" + "\n" +
+                "    id=" + id + "\n" +
+                "    name='" + name + '\'' + "\n" +
+                "    match='" + match + '\'' + "\n" +
+                "    matchingAlgorithm=" + matchingAlgorithm + "\n" +
+                "    isInsensitive=" + isInsensitive + "\n" +
+                "    isInboxTag=" + isInboxTag + "\n" +
+                "    color='" + color + '\'' + "\n" +
+                "    owner=" + owner + "\n" +
+                "    tagDocumentsDocumentTagses=" + tagDocumentsDocumentTagses + "\n" +
+                "    tagPaperlessMailMailruleAssignTagses=" + tagPaperlessMailMailruleAssignTagses + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsTag that = (DocumentsTag) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(match, that.match) && Objects.equals(matchingAlgorithm, that.matchingAlgorithm) && Objects.equals(isInsensitive, that.isInsensitive) && Objects.equals(isInboxTag, that.isInboxTag) && Objects.equals(color, that.color) && Objects.equals(owner, that.owner) && Objects.equals(tagDocumentsDocumentTagses, that.tagDocumentsDocumentTagses) && Objects.equals(tagPaperlessMailMailruleAssignTagses, that.tagPaperlessMailMailruleAssignTagses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, match, matchingAlgorithm, isInsensitive, isInboxTag, color, owner, tagDocumentsDocumentTagses, tagPaperlessMailMailruleAssignTagses);
+    }
 }

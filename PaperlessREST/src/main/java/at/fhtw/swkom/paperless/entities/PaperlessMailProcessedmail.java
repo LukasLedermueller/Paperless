@@ -1,7 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 
 @Entity
@@ -130,4 +131,32 @@ public class PaperlessMailProcessedmail {
         this.rule = rule;
     }
 
+    @Override
+    public String toString() {
+        return "PaperlessMailProcessedmail{" + "\n" +
+                "    id=" + id + "\n" +
+                "    folder='" + folder + '\'' + "\n" +
+                "    uid='" + uid + '\'' + "\n" +
+                "    subject='" + subject + '\'' + "\n" +
+                "    received=" + received + "\n" +
+                "    processed=" + processed + "\n" +
+                "    status='" + status + '\'' + "\n" +
+                "    error='" + error + '\'' + "\n" +
+                "    owner=" + owner + "\n" +
+                "    rule=" + rule + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaperlessMailProcessedmail that = (PaperlessMailProcessedmail) o;
+        return Objects.equals(id, that.id) && Objects.equals(folder, that.folder) && Objects.equals(uid, that.uid) && Objects.equals(subject, that.subject) && Objects.equals(received, that.received) && Objects.equals(processed, that.processed) && Objects.equals(status, that.status) && Objects.equals(error, that.error) && Objects.equals(owner, that.owner) && Objects.equals(rule, that.rule);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, folder, uid, subject, received, processed, status, error, owner, rule);
+    }
 }

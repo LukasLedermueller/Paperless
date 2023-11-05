@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 
 
 @Entity
@@ -62,4 +64,26 @@ public class DocumentsSavedviewfilterrule {
         this.savedView = savedView;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsSavedviewfilterrule{" + "\n" +
+                "    id=" + id + "\n" +
+                "    ruleType=" + ruleType + "\n" +
+                "    value='" + value + '\'' + "\n" +
+                "    savedView=" + savedView + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsSavedviewfilterrule that = (DocumentsSavedviewfilterrule) o;
+        return Objects.equals(id, that.id) && Objects.equals(ruleType, that.ruleType) && Objects.equals(value, that.value) && Objects.equals(savedView, that.savedView);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, ruleType, value, savedView);
+    }
 }

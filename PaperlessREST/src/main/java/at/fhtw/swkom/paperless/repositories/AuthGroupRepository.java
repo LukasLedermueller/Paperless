@@ -1,6 +1,6 @@
 package at.fhtw.swkom.paperless.repositories;
 
-import at.fhtw.swkom.paperless.models.AuthGroup;
+import at.fhtw.swkom.paperless.entities.AuthGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

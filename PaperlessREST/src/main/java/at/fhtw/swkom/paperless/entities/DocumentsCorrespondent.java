@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -109,4 +111,30 @@ public class DocumentsCorrespondent {
         this.assignCorrespondentPaperlessMailMailrules = assignCorrespondentPaperlessMailMailrules;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsCorrespondent{" + "\n" +
+                "    id=" + id + "\n" +
+                "    name='" + name + '\'' + "\n" +
+                "    match='" + match + '\'' + "\n" +
+                "    matchingAlgorithm=" + matchingAlgorithm + "\n" +
+                "    isInsensitive=" + isInsensitive + "\n" +
+                "    owner=" + owner + "\n" +
+                "    correspondentDocumentsDocuments=" + correspondentDocumentsDocuments + "\n" +
+                "    assignCorrespondentPaperlessMailMailrules=" + assignCorrespondentPaperlessMailMailrules + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsCorrespondent that = (DocumentsCorrespondent) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(match, that.match) && Objects.equals(matchingAlgorithm, that.matchingAlgorithm) && Objects.equals(isInsensitive, that.isInsensitive) && Objects.equals(owner, that.owner) && Objects.equals(correspondentDocumentsDocuments, that.correspondentDocumentsDocuments) && Objects.equals(assignCorrespondentPaperlessMailMailrules, that.assignCorrespondentPaperlessMailMailrules);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, match, matchingAlgorithm, isInsensitive, owner, correspondentDocumentsDocuments, assignCorrespondentPaperlessMailMailrules);
+    }
 }

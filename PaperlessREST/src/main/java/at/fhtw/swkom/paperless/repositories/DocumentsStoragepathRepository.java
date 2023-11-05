@@ -1,6 +1,6 @@
 package at.fhtw.swkom.paperless.repositories;
 
-import at.fhtw.swkom.paperless.models.DocumentsStoragepath;
+import at.fhtw.swkom.paperless.entities.DocumentsStoragepath;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

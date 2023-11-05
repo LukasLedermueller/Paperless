@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/paperless
+    url: jdbc:postgresql://paperless-persistence:5432/paperless
     username: postgres
     password: postgres
   jpa:

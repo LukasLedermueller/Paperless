@@ -1,7 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 
 @Entity
@@ -75,4 +76,27 @@ public class DocumentsNote {
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsNote{" + "\n" +
+                "    id=" + id + "\n" +
+                "    note='" + note + '\'' + "\n" +
+                "    created=" + created + "\n" +
+                "    document=" + document + "\n" +
+                "    user=" + user + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsNote that = (DocumentsNote) o;
+        return Objects.equals(id, that.id) && Objects.equals(note, that.note) && Objects.equals(created, that.created) && Objects.equals(document, that.document) && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, note, created, document, user);
+    }
 }

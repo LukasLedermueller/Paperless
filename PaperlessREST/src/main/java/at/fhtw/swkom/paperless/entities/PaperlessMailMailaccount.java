@@ -1,6 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -141,4 +143,33 @@ public class PaperlessMailMailaccount {
         this.accountPaperlessMailMailrules = accountPaperlessMailMailrules;
     }
 
+    @Override
+    public String toString() {
+        return "PaperlessMailMailaccount{" + "\n" +
+                "    id=" + id + "\n" +
+                "    name='" + name + '\'' + "\n" +
+                "    imapServer='" + imapServer + '\'' + "\n" +
+                "    imapPort=" + imapPort + "\n" +
+                "    imapSecurity=" + imapSecurity + "\n" +
+                "    username='" + username + '\'' + "\n" +
+                "    password='" + password + '\'' + "\n" +
+                "    characterSet='" + characterSet + '\'' + "\n" +
+                "    isToken=" + isToken + "\n" +
+                "    owner=" + owner + "\n" +
+                "    accountPaperlessMailMailrules=" + accountPaperlessMailMailrules + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaperlessMailMailaccount that = (PaperlessMailMailaccount) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(imapServer, that.imapServer) && Objects.equals(imapPort, that.imapPort) && Objects.equals(imapSecurity, that.imapSecurity) && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(characterSet, that.characterSet) && Objects.equals(isToken, that.isToken) && Objects.equals(owner, that.owner) && Objects.equals(accountPaperlessMailMailrules, that.accountPaperlessMailMailrules);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, imapServer, imapPort, imapSecurity, username, password, characterSet, isToken, owner, accountPaperlessMailMailrules);
+    }
 }

@@ -1,7 +1,9 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 public class AuthUserGroups {
@@ -52,4 +54,25 @@ public class AuthUserGroups {
         this.group = group;
     }
 
+    @Override
+    public String toString() {
+        return "AuthUserGroups{" + "\n" +
+                "    id=" + id + "\n" +
+                "    user=" + user + "\n" +
+                "    group=" + group + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthUserGroups that = (AuthUserGroups) o;
+        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(group, that.group);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, group);
+    }
 }

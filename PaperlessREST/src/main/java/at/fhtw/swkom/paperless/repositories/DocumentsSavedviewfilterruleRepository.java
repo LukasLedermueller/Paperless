@@ -1,6 +1,6 @@
 package at.fhtw.swkom.paperless.repositories;
 
-import at.fhtw.swkom.paperless.models.DocumentsSavedviewfilterrule;
+import at.fhtw.swkom.paperless.entities.DocumentsSavedviewfilterrule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

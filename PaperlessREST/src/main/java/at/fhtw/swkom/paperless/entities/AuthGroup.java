@@ -1,7 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -63,5 +64,26 @@ public class AuthGroup {
             final Set<AuthGroupPermissions> groupAuthGroupPermissionses) {
         this.groupAuthGroupPermissionses = groupAuthGroupPermissionses;
     }
+    @Override
+    public String toString() {
+        return "AuthGroup{" + "\n" +
+                "    id=" + id + "\n" +
+                "    name='" + name + '\'' + "\n" +
+                "    groupAuthUserGroupses=" + groupAuthUserGroupses + "\n" +
+                "    groupAuthGroupPermissionses=" + groupAuthGroupPermissionses + "\n" +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthGroup authGroup = (AuthGroup) o;
+        return Objects.equals(id, authGroup.id) && Objects.equals(name, authGroup.name) && Objects.equals(groupAuthUserGroupses, authGroup.groupAuthUserGroupses) && Objects.equals(groupAuthGroupPermissionses, authGroup.groupAuthGroupPermissionses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, groupAuthUserGroupses, groupAuthGroupPermissionses);
+    }
 }

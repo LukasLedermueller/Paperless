@@ -1,7 +1,8 @@
-package at.fhtw.swkom.paperless.models;
+package at.fhtw.swkom.paperless.entities;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 
 @Entity
@@ -128,4 +129,32 @@ public class DocumentsPaperlesstask {
         this.taskName = taskName;
     }
 
+    @Override
+    public String toString() {
+        return "DocumentsPaperlesstask{" + "\n" +
+                "    id=" + id + "\n" +
+                "    taskId='" + taskId + '\'' + "\n" +
+                "    acknowledged=" + acknowledged + "\n" +
+                "    dateCreated=" + dateCreated + "\n" +
+                "    dateDone=" + dateDone + "\n" +
+                "    dateStarted=" + dateStarted + "\n" +
+                "    result='" + result + '\'' + "\n" +
+                "    status='" + status + '\'' + "\n" +
+                "    taskFileName='" + taskFileName + '\'' + "\n" +
+                "    taskName='" + taskName + '\'' + "\n" +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsPaperlesstask that = (DocumentsPaperlesstask) o;
+        return Objects.equals(id, that.id) && Objects.equals(taskId, that.taskId) && Objects.equals(acknowledged, that.acknowledged) && Objects.equals(dateCreated, that.dateCreated) && Objects.equals(dateDone, that.dateDone) && Objects.equals(dateStarted, that.dateStarted) && Objects.equals(result, that.result) && Objects.equals(status, that.status) && Objects.equals(taskFileName, that.taskFileName) && Objects.equals(taskName, that.taskName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, taskId, acknowledged, dateCreated, dateDone, dateStarted, result, status, taskFileName, taskName);
+    }
 }
