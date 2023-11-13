@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -89,15 +90,13 @@ class DocumentMapperTest {
         documentsDocument.setDocumentDocumentsDocumentTagses(Set.of(documentsDocumentTag1, documentsDocumentTag2));
 
         // TODO:
-        /*
-        String checksum
-        String storageType
-        String filename
-        String mimeType
-        String archiveChecksum
-        AuthUser owner
-        Set<DocumentsNote> documentDocumentsNotes
-        */
+        // String checksum
+        // String storageType
+        // String filename
+        // String mimeType
+        // String archiveChecksum
+        // AuthUser owner
+        // Set<DocumentsNote> documentDocumentsNotes
 
         DocumentDto expectedDocumentDto = new DocumentDto();
         expectedDocumentDto.setId(id);
@@ -211,15 +210,13 @@ class DocumentMapperTest {
         expectedDocumentsDocument.setDocumentDocumentsDocumentTagses(Set.of(documentsDocumentTag1, documentsDocumentTag2));
 
         // TODO:
-        /*
-        String checksum
-        String storageType
-        String filename
-        String mimeType
-        String archiveChecksum
-        AuthUser owner
-        Set<DocumentsNote> documentDocumentsNotes
-        */
+        // String checksum
+        // String storageType
+        // String filename
+        // String mimeType
+        // String archiveChecksum
+        // AuthUser owner
+        // Set<DocumentsNote> documentDocumentsNotes
 
         DocumentsDocument documentsDocument = documentMapper.dtoToEntity(documentDto);
 
