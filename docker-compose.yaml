@@ -15,7 +15,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 80:80
-  
+
   paperless-persistence:
     image: postgres:latest
     environment:
@@ -29,4 +29,3 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      

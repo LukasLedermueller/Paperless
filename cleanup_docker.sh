@@ -22,7 +22,13 @@ cleanup_docker() {
     docker rmi $(docker images -a -q) 2>/dev/null
 }
 
+system_prune() {
+    echo -e "\n  $yellowstar Running system prune ...\n"
+    docker system prune -f
+}
+
 check_for_root
 cleanup_docker
+system_prune
 
 echo -e "\n  $greenplus All Done! Happy Coding!\n"

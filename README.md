@@ -6,5 +6,5 @@ Link to Git: https://github.com/LukasLedermueller/Paperless
 
 ## Documentation
 
-![<Paperless-Components>](./Paperless-Components.png)
+![<Paperless-Components>](./Documentation/Paperless-Components.png)
 
