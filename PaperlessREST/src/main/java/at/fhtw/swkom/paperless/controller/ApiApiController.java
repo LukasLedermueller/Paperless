@@ -14,6 +14,8 @@ import at.fhtw.swkom.paperless.services.dto.CreateTagRequest;
 import at.fhtw.swkom.paperless.services.dto.CreateUISettings200Response;
 import at.fhtw.swkom.paperless.services.dto.CreateUISettingsRequest;
 import at.fhtw.swkom.paperless.services.dto.CreateUserRequest;
+import at.fhtw.swkom.paperless.services.rabbitmq.RabbitMQService;
+import at.fhtw.swkom.paperless.services.minio.MinIOService;
 import org.springframework.format.annotation.DateTimeFormat;
 import at.fhtw.swkom.paperless.services.dto.GetCorrespondents200Response;
 import at.fhtw.swkom.paperless.services.dto.GetDocument200Response;
@@ -100,38 +102,13 @@ public class ApiApiController implements ApiApi {
     @Override
     public ResponseEntity<Void> uploadDocument(String title, OffsetDateTime created, Integer documentType,
                                                List<Integer> tags, Integer correspondent, List<MultipartFile> documents) {
-        // Your implementation here
-        String minioEndpoint = "http://MinIO:9000";
-        String accessKey = "minioadmin";
-        String secretKey = "minioadmin";
-        String bucketName = "documents";
         try {
-            MinioClient minioClient = MinioClient.builder()
-                    .endpoint(minioEndpoint)
-                    .credentials(accessKey, secretKey)
-                    .build();
-
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
-            if (!found) {
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
-            } else {
-                System.out.println("Bucket " + bucketName + " already exists.");
-            }
-
             for (MultipartFile document : documents) {
-                minioClient.putObject(
-                        PutObjectArgs.builder()
-                                .bucket(bucketName)
-                                .object(document.getOriginalFilename())
-                                .stream(document.getInputStream(), document.getSize(), -1)
-                                .contentType(document.getContentType())
-                                .build()
-                );
-                System.out.println("Success: " + document.getOriginalFilename());
+                new MinIOService().uploadDocument(document);
+                new RabbitMQService().sendMessageToQueue(document.getOriginalFilename());
             }
-
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (MinioException | IOException | InvalidKeyException | NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
