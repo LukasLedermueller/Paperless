@@ -465,7 +465,8 @@ public interface ApiApi {
                 }
             }
         });
-        return new ResponseEntity<>(HttpStatus.OK);
+        CreateUISettings200Response response = new CreateUISettings200Response(true);
+        return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 
