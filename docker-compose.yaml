@@ -9,6 +9,13 @@ services:
       paperless-persistence:
         condition: service_healthy
 
+  paperless-services:
+    build:
+      context: ./PaperlessServices
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8082
+
   paperless-ui:
     build:
       context: ./PaperlessUI
@@ -29,6 +36,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   MinIO:
     image: minio/minio
     ports:
@@ -39,6 +47,7 @@ services:
       MINIO_ROOT_PASSWORD: minioadmin
     command: server /data
     entrypoint: sh -c "mkdir -p /data && /usr/bin/docker-entrypoint.sh minio server /data --console-address ':9090'"
+
   RabbitMQ:
     image: rabbitmq:3-management
     ports:
