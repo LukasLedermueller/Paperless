@@ -23,3 +23,9 @@ spring:
     date-format: 'at.fhtw.swkom.paperless.services.RFC3339DateFormat'
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+
+minio:
+  endpoint: http://MinIO:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: documentBucket

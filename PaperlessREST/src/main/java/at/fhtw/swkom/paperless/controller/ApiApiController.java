@@ -48,7 +48,16 @@ import at.fhtw.swkom.paperless.services.dto.UpdateTagRequest;
 import at.fhtw.swkom.paperless.services.dto.UpdateUserRequest;
 import at.fhtw.swkom.paperless.services.dto.UserInfo;
 
+import io.minio.GetObjectArgs;
+import java.io.InputStream;
+import org.springframework.http.HttpHeaders;
+import org.springframework.core.io.InputStreamResource;
 
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
+import io.minio.MinioClient;
+import io.minio.PutObjectArgs;
+import io.minio.errors.MinioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -65,6 +74,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-09T11:20:43.687138Z[Etc/UTC]")
 @Controller
@@ -73,7 +87,6 @@ import jakarta.annotation.Generated;
 public class ApiApiController implements ApiApi {
 
     private final NativeWebRequest request;
-
     @Autowired
     public ApiApiController(NativeWebRequest request) {
         this.request = request;
@@ -84,4 +97,83 @@ public class ApiApiController implements ApiApi {
         return Optional.ofNullable(request);
     }
 
+    @Override
+    public ResponseEntity<Void> uploadDocument(String title, OffsetDateTime created, Integer documentType,
+                                               List<Integer> tags, Integer correspondent, List<MultipartFile> documents) {
+        // Your implementation here
+        String minioEndpoint = "http://MinIO:9000";
+        String accessKey = "minioadmin";
+        String secretKey = "minioadmin";
+        String bucketName = "documents";
+        try {
+            MinioClient minioClient = MinioClient.builder()
+                    .endpoint(minioEndpoint)
+                    .credentials(accessKey, secretKey)
+                    .build();
+
+            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+            if (!found) {
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
+            } else {
+                System.out.println("Bucket " + bucketName + " already exists.");
+            }
+
+            for (MultipartFile document : documents) {
+                minioClient.putObject(
+                        PutObjectArgs.builder()
+                                .bucket(bucketName)
+                                .object(document.getOriginalFilename())
+                                .stream(document.getInputStream(), document.getSize(), -1)
+                                .contentType(document.getContentType())
+                                .build()
+                );
+                System.out.println("Success: " + document.getOriginalFilename());
+            }
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (MinioException | IOException | InvalidKeyException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @Override
+    public ResponseEntity<org.springframework.core.io.Resource> downloadDocument(Integer id, Boolean original) {
+        try {
+            String minioEndpoint = "http://MinIO:9000";
+            String accessKey = "minioadmin";
+            String secretKey = "minioadmin";
+            String bucketName = "documents";
+            String fileName = "test.pdf";
+            System.out.println(id);
+            MinioClient minioClient = MinioClient.builder()
+                    .endpoint(minioEndpoint)
+                    .credentials(accessKey, secretKey)
+                    .build();
+            // Perform the getObject operation
+            GetObjectArgs getObjectArgs = GetObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object(fileName)
+                    .build();
+
+            InputStream stream = minioClient.getObject(getObjectArgs);
+
+            // Set headers for the response
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+            headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
+
+            // Return the file as a response entity
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(new InputStreamResource(stream));
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exceptions appropriately
+            return ResponseEntity
+                    .status(500)
+                    .body(null);
+        }
+    }
 }
