@@ -12,8 +12,7 @@ COPY .. /app
 
 # Build the application
 RUN mvn package
-# Define the command to run your Spring Boot application
-CMD ["java", "-jar", "target/openapi-spring-1.0.jar"]
+
 
 # OpenJDK 17 Image based on Debian
 FROM openjdk:17-bullseye
