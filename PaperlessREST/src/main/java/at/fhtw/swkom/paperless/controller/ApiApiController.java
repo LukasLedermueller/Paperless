@@ -1,5 +1,7 @@
 package at.fhtw.swkom.paperless.controller;
 
+import at.fhtw.swkom.paperless.entities.DocumentsDocument;
+import at.fhtw.swkom.paperless.repositories.DocumentsDocumentRepository;
 import at.fhtw.swkom.paperless.services.dto.AckTasks200Response;
 import at.fhtw.swkom.paperless.services.dto.AckTasksRequest;
 import at.fhtw.swkom.paperless.services.dto.BulkEditRequest;
@@ -89,9 +91,12 @@ import java.security.NoSuchAlgorithmException;
 public class ApiApiController implements ApiApi {
 
     private final NativeWebRequest request;
+    private final DocumentsDocumentRepository documentsDocumentRepository;
+
     @Autowired
-    public ApiApiController(NativeWebRequest request) {
+    public ApiApiController(NativeWebRequest request, DocumentsDocumentRepository documentsDocumentRepository) {
         this.request = request;
+        this.documentsDocumentRepository = documentsDocumentRepository;
     }
 
     @Override
@@ -104,6 +109,19 @@ public class ApiApiController implements ApiApi {
                                                List<Integer> tags, Integer correspondent, List<MultipartFile> documents) {
         try {
             for (MultipartFile document : documents) {
+                System.out.println("------------ document start -----------");
+                System.out.println(document);
+                System.out.println("------------ document end -----------");
+                DocumentsDocument documentsDocument = new DocumentsDocument();
+                documentsDocument.setOriginalFilename(document.getOriginalFilename());
+                documentsDocument.setFilename(document.getOriginalFilename());
+
+                DocumentsDocument savedDocumentsDocument = this.documentsDocumentRepository.save(documentsDocument);
+                System.out.println("------------ savedDocumentsDocument start -----------");
+                System.out.println("id: " + savedDocumentsDocument.getId());
+                System.out.println("original filename: " + savedDocumentsDocument.getOriginalFilename());
+                System.out.println("filename: " + savedDocumentsDocument.getFilename());
+                System.out.println("------------ savedDocumentsDocument end -----------");
                 new MinIOService().uploadDocument(document);
                 new RabbitMQService().sendMessageToQueue(document.getOriginalFilename());
             }
