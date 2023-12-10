@@ -1,5 +1,5 @@
 # Fetching latest version of Java
-FROM amazoncorretto:17-alpine-jdk
+FROM amazoncorretto:17-alpine-jdk as build
 
 # Set the working directory to /app
 WORKDIR /app
@@ -12,9 +12,25 @@ COPY .. /app
 
 # Build the application
 RUN mvn package
-
-# Expose the port that your application will run on (replace 8080 with your application's port if necessary)
-EXPOSE 8082
-
 # Define the command to run your Spring Boot application
-CMD ["java", "-jar", "target/paperlessservices-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/openapi-spring-1.0.jar"]
+
+# OpenJDK 17 Image based on Debian
+FROM openjdk:17-bullseye
+
+# Update the package list and install tesseract-ocr
+RUN apt-get update && \
+    apt-get install -y tesseract-ocr && \
+    rm -rf /var/lib/apt/lists/*
+
+# Download the English language package for Tesseract
+RUN mkdir -p /usr/share/tesseract-ocr/4.00/tessdata
+ADD https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata /usr/share/tesseract-ocr/4.00/tessdata/
+
+# Verify Tesseract installation
+RUN tesseract --version && \
+    tesseract --list-langs
+
+COPY --from=build /app/target/paperlessservices-0.0.1-SNAPSHOT.jar ocr.java
+
+ENTRYPOINT ["java","-jar","ocr.java"]
