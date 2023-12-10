@@ -23,25 +23,25 @@ public class DocumentsDocument {
     )
     private Integer id;
 
-    @Column(nullable = false, length = 128)
+    @Column(length = 128)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "text")
+    @Column(columnDefinition = "text")
     private String content;
 
-    @Column(nullable = false)
+    @Column()
     private OffsetDateTime created;
 
-    @Column(nullable = false)
+    @Column()
     private OffsetDateTime modified;
 
-    @Column(nullable = false, length = 32)
+    @Column(length = 32)
     private String checksum;
 
-    @Column(nullable = false)
+    @Column()
     private OffsetDateTime added;
 
-    @Column(nullable = false, length = 11)
+    @Column(length = 11)
     private String storageType;
 
     @Column(length = 1024)
@@ -50,7 +50,7 @@ public class DocumentsDocument {
     @Column
     private Integer archiveSerialNumber;
 
-    @Column(nullable = false, length = 256)
+    @Column(length = 256)
     private String mimeType;
 
     @Column(length = 32)
