@@ -5,6 +5,7 @@
  */
 package at.fhtw.swkom.paperless.controller;
 
+import at.fhtw.swkom.paperless.entities.DocumentsDocument;
 import at.fhtw.swkom.paperless.services.dto.AckTasks200Response;
 import at.fhtw.swkom.paperless.services.dto.AckTasksRequest;
 import at.fhtw.swkom.paperless.services.dto.BulkEditRequest;
@@ -52,15 +53,12 @@ import at.fhtw.swkom.paperless.services.dto.UpdateTag200Response;
 import at.fhtw.swkom.paperless.services.dto.UpdateTagRequest;
 import at.fhtw.swkom.paperless.services.dto.UpdateUserRequest;
 import at.fhtw.swkom.paperless.services.dto.UserInfo;
-import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.http.HttpStatus;
@@ -72,9 +70,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
@@ -108,7 +105,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<AckTasks200Response> ackTasks(
         @Parameter(name = "AckTasksRequest", description = "") @Valid @RequestBody(required = false) AckTasksRequest ackTasksRequest
     ) {
@@ -142,9 +139,9 @@ public interface ApiApi {
         method = RequestMethod.GET,
         value = "/api/"
     )
-    
+
     default ResponseEntity<Void> apiGet(
-        
+
     ) {
         return new ResponseEntity<>(HttpStatus.OK);
 
@@ -172,7 +169,7 @@ public interface ApiApi {
         value = "/api/search/autocomplete/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<String>> autoComplete(
         @Parameter(name = "term", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "term", required = false) String term,
         @Parameter(name = "limit", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "limit", required = false) Integer limit
@@ -209,7 +206,7 @@ public interface ApiApi {
         value = "/api/documents/bulk_edit/",
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<Void> bulkEdit(
         @Parameter(name = "BulkEditRequest", description = "") @Valid @RequestBody(required = false) BulkEditRequest bulkEditRequest
     ) {
@@ -239,7 +236,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<CreateCorrespondentRequest> createCorrespondent(
         @Parameter(name = "CreateCorrespondentRequest", description = "") @Valid @RequestBody(required = false) CreateCorrespondentRequest createCorrespondentRequest
     ) {
@@ -278,7 +275,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<CreateDocumentType200Response> createDocumentType(
         @Parameter(name = "CreateCorrespondentRequest", description = "") @Valid @RequestBody(required = false) CreateCorrespondentRequest createCorrespondentRequest
     ) {
@@ -317,7 +314,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<Object> createGroup(
         @Parameter(name = "CreateGroupRequest", description = "") @Valid @RequestBody(required = false) CreateGroupRequest createGroupRequest
     ) {
@@ -344,7 +341,7 @@ public interface ApiApi {
         value = "/api/saved_views/",
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<Void> createSavedViews(
         @Parameter(name = "CreateSavedViewsRequest", description = "") @Valid @RequestBody(required = false) CreateSavedViewsRequest createSavedViewsRequest
     ) {
@@ -374,7 +371,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<CreateStoragePath200Response> createStoragePath(
         @Parameter(name = "CreateStoragePathRequest", description = "") @Valid @RequestBody(required = false) CreateStoragePathRequest createStoragePathRequest
     ) {
@@ -413,7 +410,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<CreateTag200Response> createTag(
         @Parameter(name = "CreateTagRequest", description = "") @Valid @RequestBody(required = false) CreateTagRequest createTagRequest
     ) {
@@ -452,7 +449,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<CreateUISettings200Response> createUISettings(
         @Parameter(name = "CreateUISettingsRequest", description = "") @Valid @RequestBody(required = false) CreateUISettingsRequest createUISettingsRequest
     ) {
@@ -492,7 +489,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<GetUsers200ResponseResultsInner> createUser(
         @Parameter(name = "CreateUserRequest", description = "") @Valid @RequestBody(required = false) CreateUserRequest createUserRequest
     ) {
@@ -527,7 +524,7 @@ public interface ApiApi {
         method = RequestMethod.DELETE,
         value = "/api/correspondents/{id}/"
     )
-    
+
     default ResponseEntity<Void> deleteCorrespondent(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -553,7 +550,7 @@ public interface ApiApi {
         method = RequestMethod.DELETE,
         value = "/api/documents/{id}/"
     )
-    
+
     default ResponseEntity<Void> deleteDocument(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -579,7 +576,7 @@ public interface ApiApi {
         method = RequestMethod.DELETE,
         value = "/api/document_types/{id}/"
     )
-    
+
     default ResponseEntity<Void> deleteDocumentType(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -605,7 +602,7 @@ public interface ApiApi {
         method = RequestMethod.DELETE,
         value = "/api/groups/{id}/"
     )
-    
+
     default ResponseEntity<Void> deleteGroup(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -631,7 +628,7 @@ public interface ApiApi {
         method = RequestMethod.DELETE,
         value = "/api/storage_paths/{id}/"
     )
-    
+
     default ResponseEntity<Void> deleteStoragePath(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -657,7 +654,7 @@ public interface ApiApi {
         method = RequestMethod.DELETE,
         value = "/api/tags/{id}/"
     )
-    
+
     default ResponseEntity<Void> deleteTag(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -683,7 +680,7 @@ public interface ApiApi {
         method = RequestMethod.DELETE,
         value = "/api/users/{id}/"
     )
-    
+
     default ResponseEntity<Void> deleteUser(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -713,7 +710,7 @@ public interface ApiApi {
         value = "/api/documents/{id}/download/",
         produces = { "application/pdf" }
     )
-    
+
     default ResponseEntity<org.springframework.core.io.Resource> downloadDocument(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "original", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "original", required = false) Boolean original
@@ -744,7 +741,7 @@ public interface ApiApi {
         value = "/api/correspondents/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetCorrespondents200Response> getCorrespondents(
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
         @Parameter(name = "full_perms", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "full_perms", required = false) Boolean fullPerms
@@ -785,7 +782,7 @@ public interface ApiApi {
         value = "/api/documents/{id}/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetDocument200Response> getDocument(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
@@ -825,7 +822,7 @@ public interface ApiApi {
         value = "/api/documents/{id}/metadata/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetDocumentMetadata200Response> getDocumentMetadata(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -863,7 +860,7 @@ public interface ApiApi {
         value = "/api/documents/{id}/preview/",
         produces = { "application/pdf" }
     )
-    
+
     default ResponseEntity<org.springframework.core.io.Resource> getDocumentPreview(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -892,7 +889,7 @@ public interface ApiApi {
         value = "/api/documents/{id}/suggestions/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetDocumentSuggestions200Response> getDocumentSuggestions(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -930,7 +927,7 @@ public interface ApiApi {
         value = "/api/documents/{id}/thumb/",
         produces = { "application/pdf" }
     )
-    
+
     default ResponseEntity<org.springframework.core.io.Resource> getDocumentThumb(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
@@ -960,7 +957,7 @@ public interface ApiApi {
         value = "/api/document_types/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetDocumentTypes200Response> getDocumentTypes(
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
         @Parameter(name = "full_perms", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "full_perms", required = false) Boolean fullPerms
@@ -982,15 +979,15 @@ public interface ApiApi {
     /**
      * GET /api/documents/
      *
-     * @param page  (optional)
-     * @param pageSize  (optional)
-     * @param query  (optional)
-     * @param ordering  (optional)
-     * @param tagsIdAll  (optional)
+     * @param page            (optional)
+     * @param pageSize        (optional)
+     * @param query           (optional)
+     * @param ordering        (optional)
+     * @param tagsIdAll       (optional)
      * @param documentTypeId  (optional)
-     * @param storagePathIdIn  (optional)
-     * @param correspondentId  (optional)
-     * @param truncateContent  (optional)
+     * @param storagePathIdIn (optional)
+     * @param correspondentId (optional)
+     * @param truncateContent (optional)
      * @return Success (status code 200)
      */
     @Operation(
@@ -1007,8 +1004,8 @@ public interface ApiApi {
         value = "/api/documents/",
         produces = { "application/json" }
     )
-    
-    default ResponseEntity<GetDocuments200Response> getDocuments(
+
+    default ResponseEntity<List<DocumentsDocument>> getDocuments(
         @Parameter(name = "Page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "Page", required = false) Integer page,
         @Parameter(name = "page_size", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page_size", required = false) Integer pageSize,
         @Parameter(name = "query", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "query", required = false) String query,
@@ -1054,7 +1051,7 @@ public interface ApiApi {
         value = "/api/groups/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetGroups200Response> getGroups(
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
         @Parameter(name = "page_size", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
@@ -1093,7 +1090,7 @@ public interface ApiApi {
         value = "/api/logs/{id}/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<String>> getLog(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") String id
     ) {
@@ -1130,9 +1127,9 @@ public interface ApiApi {
         value = "/api/logs/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<String>> getLogs(
-        
+
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -1169,7 +1166,7 @@ public interface ApiApi {
         value = "/api/saved_views/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetSavedViews200Response> getSavedViews(
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
         @Parameter(name = "page_size", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
@@ -1209,7 +1206,7 @@ public interface ApiApi {
         value = "/api/storage_paths/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetStoragePaths200Response> getStoragePaths(
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
         @Parameter(name = "full_perms", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "full_perms", required = false) Boolean fullPerms
@@ -1249,7 +1246,7 @@ public interface ApiApi {
         value = "/api/tags/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetTags200Response> getTags(
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
         @Parameter(name = "full_perms", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "full_perms", required = false) Boolean fullPerms
@@ -1287,9 +1284,9 @@ public interface ApiApi {
         value = "/api/tasks/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<List<GetTasks200ResponseInner>> getTasks(
-        
+
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -1323,7 +1320,7 @@ public interface ApiApi {
         value = "/api/token/",
         consumes = { "application/json", "text/json", "application/*+json" }
     )
-    
+
     default ResponseEntity<Void> getToken(
         @Parameter(name = "UserInfo", description = "") @Valid @RequestBody(required = false) UserInfo userInfo
     ) {
@@ -1351,9 +1348,9 @@ public interface ApiApi {
         value = "/api/ui_settings/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetUISettings200Response> getUISettings(
-        
+
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -1390,7 +1387,7 @@ public interface ApiApi {
         value = "/api/users/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<GetUsers200Response> getUsers(
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
         @Parameter(name = "page_size", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
@@ -1425,9 +1422,9 @@ public interface ApiApi {
         method = RequestMethod.POST,
         value = "/api/"
     )
-    
+
     default ResponseEntity<Void> root(
-        
+
     ) {
         return new ResponseEntity<>(HttpStatus.OK);
 
@@ -1455,7 +1452,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<SelectionData200Response> selectionData(
         @Parameter(name = "SelectionDataRequest", description = "") @Valid @RequestBody(required = false) SelectionDataRequest selectionDataRequest
     ) {
@@ -1492,9 +1489,9 @@ public interface ApiApi {
         value = "/api/statistics/",
         produces = { "application/json" }
     )
-    
+
     default ResponseEntity<Statistics200Response> statistics(
-        
+
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -1532,7 +1529,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<UpdateCorrespondent200Response> updateCorrespondent(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "UpdateCorrespondentRequest", description = "") @Valid @RequestBody(required = false) UpdateCorrespondentRequest updateCorrespondentRequest
@@ -1573,7 +1570,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<UpdateDocument200Response> updateDocument(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "UpdateDocumentRequest", description = "") @Valid @RequestBody(required = false) UpdateDocumentRequest updateDocumentRequest
@@ -1614,7 +1611,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<UpdateDocumentType200Response> updateDocumentType(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "UpdateDocumentTypeRequest", description = "") @Valid @RequestBody(required = false) UpdateDocumentTypeRequest updateDocumentTypeRequest
@@ -1655,7 +1652,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<UpdateGroup200Response> updateGroup(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "UpdateGroupRequest", description = "") @Valid @RequestBody(required = false) UpdateGroupRequest updateGroupRequest
@@ -1696,7 +1693,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<UpdateStoragePath200Response> updateStoragePath(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "UpdateStoragePathRequest", description = "") @Valid @RequestBody(required = false) UpdateStoragePathRequest updateStoragePathRequest
@@ -1737,7 +1734,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<UpdateTag200Response> updateTag(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "UpdateTagRequest", description = "") @Valid @RequestBody(required = false) UpdateTagRequest updateTagRequest
@@ -1778,7 +1775,7 @@ public interface ApiApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    
+
     default ResponseEntity<GetUsers200ResponseResultsInner> updateUser(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id,
         @Parameter(name = "UpdateUserRequest", description = "") @Valid @RequestBody(required = false) UpdateUserRequest updateUserRequest
@@ -1820,7 +1817,7 @@ public interface ApiApi {
         value = "/api/documents/post_document/",
         consumes = { "multipart/form-data" }
     )
-    
+
     default ResponseEntity<Void> uploadDocument(
         @Parameter(name = "title", description = "") @Valid @RequestParam(value = "title", required = false) String title,
         @Parameter(name = "created", description = "") @Valid @RequestParam(value = "created", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime created,

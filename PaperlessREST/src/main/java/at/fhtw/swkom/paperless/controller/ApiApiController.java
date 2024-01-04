@@ -2,66 +2,17 @@ package at.fhtw.swkom.paperless.controller;
 
 import at.fhtw.swkom.paperless.entities.DocumentsDocument;
 import at.fhtw.swkom.paperless.repositories.DocumentsDocumentRepository;
-import at.fhtw.swkom.paperless.services.dto.AckTasks200Response;
-import at.fhtw.swkom.paperless.services.dto.AckTasksRequest;
-import at.fhtw.swkom.paperless.services.dto.BulkEditRequest;
-import at.fhtw.swkom.paperless.services.dto.CreateCorrespondentRequest;
-import at.fhtw.swkom.paperless.services.dto.CreateDocumentType200Response;
-import at.fhtw.swkom.paperless.services.dto.CreateGroupRequest;
-import at.fhtw.swkom.paperless.services.dto.CreateSavedViewsRequest;
-import at.fhtw.swkom.paperless.services.dto.CreateStoragePath200Response;
-import at.fhtw.swkom.paperless.services.dto.CreateStoragePathRequest;
-import at.fhtw.swkom.paperless.services.dto.CreateTag200Response;
-import at.fhtw.swkom.paperless.services.dto.CreateTagRequest;
-import at.fhtw.swkom.paperless.services.dto.CreateUISettings200Response;
-import at.fhtw.swkom.paperless.services.dto.CreateUISettingsRequest;
-import at.fhtw.swkom.paperless.services.dto.CreateUserRequest;
 import at.fhtw.swkom.paperless.services.rabbitmq.RabbitMQService;
 import at.fhtw.swkom.paperless.services.minio.MinIOService;
-import org.springframework.format.annotation.DateTimeFormat;
-import at.fhtw.swkom.paperless.services.dto.GetCorrespondents200Response;
-import at.fhtw.swkom.paperless.services.dto.GetDocument200Response;
-import at.fhtw.swkom.paperless.services.dto.GetDocumentMetadata200Response;
-import at.fhtw.swkom.paperless.services.dto.GetDocumentSuggestions200Response;
-import at.fhtw.swkom.paperless.services.dto.GetDocumentTypes200Response;
-import at.fhtw.swkom.paperless.services.dto.GetDocuments200Response;
-import at.fhtw.swkom.paperless.services.dto.GetGroups200Response;
-import at.fhtw.swkom.paperless.services.dto.GetSavedViews200Response;
-import at.fhtw.swkom.paperless.services.dto.GetStoragePaths200Response;
-import at.fhtw.swkom.paperless.services.dto.GetTags200Response;
-import at.fhtw.swkom.paperless.services.dto.GetTasks200ResponseInner;
-import at.fhtw.swkom.paperless.services.dto.GetUISettings200Response;
-import at.fhtw.swkom.paperless.services.dto.GetUsers200Response;
-import at.fhtw.swkom.paperless.services.dto.GetUsers200ResponseResultsInner;
+
 import java.time.OffsetDateTime;
-import at.fhtw.swkom.paperless.services.dto.SelectionData200Response;
-import at.fhtw.swkom.paperless.services.dto.SelectionDataRequest;
-import at.fhtw.swkom.paperless.services.dto.Statistics200Response;
-import at.fhtw.swkom.paperless.services.dto.UpdateCorrespondent200Response;
-import at.fhtw.swkom.paperless.services.dto.UpdateCorrespondentRequest;
-import at.fhtw.swkom.paperless.services.dto.UpdateDocument200Response;
-import at.fhtw.swkom.paperless.services.dto.UpdateDocumentRequest;
-import at.fhtw.swkom.paperless.services.dto.UpdateDocumentType200Response;
-import at.fhtw.swkom.paperless.services.dto.UpdateDocumentTypeRequest;
-import at.fhtw.swkom.paperless.services.dto.UpdateGroup200Response;
-import at.fhtw.swkom.paperless.services.dto.UpdateGroupRequest;
-import at.fhtw.swkom.paperless.services.dto.UpdateStoragePath200Response;
-import at.fhtw.swkom.paperless.services.dto.UpdateStoragePathRequest;
-import at.fhtw.swkom.paperless.services.dto.UpdateTag200Response;
-import at.fhtw.swkom.paperless.services.dto.UpdateTagRequest;
-import at.fhtw.swkom.paperless.services.dto.UpdateUserRequest;
-import at.fhtw.swkom.paperless.services.dto.UserInfo;
 
 import io.minio.GetObjectArgs;
 import java.io.InputStream;
 import org.springframework.http.HttpHeaders;
 import org.springframework.core.io.InputStreamResource;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.errors.MinioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -71,17 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import jakarta.validation.constraints.*;
-import jakarta.validation.Valid;
-
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
 
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-10-09T11:20:43.687138Z[Etc/UTC]")
@@ -123,7 +66,7 @@ public class ApiApiController implements ApiApi {
                 System.out.println("filename: " + savedDocumentsDocument.getFilename());
                 System.out.println("------------ savedDocumentsDocument end -----------");
                 new MinIOService().uploadDocument(document);
-                new RabbitMQService().sendMessageToQueue(document.getOriginalFilename());
+                new RabbitMQService().sendMessageToQueue(savedDocumentsDocument.getId().toString());
             }
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
@@ -131,6 +74,13 @@ public class ApiApiController implements ApiApi {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /* @Override
+    public ResponseEntity<List<DocumentsDocument>> getDocuments(Integer page, Integer pageSize, String query, String ordering, List<Integer> tagsIdAll, Integer documentTypeId, Integer storagePathIdIn, Integer correspondentId, Boolean truncateContent) {
+        List<DocumentsDocument> list = documentsDocumentRepository.findAll();
+        System.out.println(list.size());
+        return ResponseEntity.ok(list);
+    }; */
     @Override
     public ResponseEntity<org.springframework.core.io.Resource> downloadDocument(Integer id, Boolean original) {
         try {
@@ -138,7 +88,8 @@ public class ApiApiController implements ApiApi {
             String accessKey = "minioadmin";
             String secretKey = "minioadmin";
             String bucketName = "documents";
-            String fileName = "test.pdf";
+            DocumentsDocument document = documentsDocumentRepository.getById(id);
+            String fileName = document.getFilename();
             System.out.println(id);
             MinioClient minioClient = MinioClient.builder()
                     .endpoint(minioEndpoint)
@@ -171,4 +122,5 @@ public class ApiApiController implements ApiApi {
                     .body(null);
         }
     }
+
 }
