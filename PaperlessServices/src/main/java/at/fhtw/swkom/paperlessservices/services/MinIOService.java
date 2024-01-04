@@ -23,6 +23,7 @@ public class MinIOService {
     String bucketName = "documents";
 
     public MultipartFile getDocumentFile(String documentName) {
+        log.info("documentname: " + documentName.toString());
         try {
 
             MinioClient minioClient = MinioClient.builder()
@@ -34,7 +35,7 @@ public class MinIOService {
             StatObjectResponse statObjectResponse = minioClient.statObject(
                     StatObjectArgs.builder()
                             .bucket(bucketName)
-                            .object(documentName)
+                            .object(documentName.toString())
                             .build()
             );
 
@@ -44,11 +45,11 @@ public class MinIOService {
             try (InputStream stream = minioClient.getObject(
                     GetObjectArgs.builder()
                             .bucket(bucketName)
-                            .object(documentName)
+                            .object(documentName.toString())
                             .build())) {
 
                 // Create a MockMultipartFile object with the determined content type
-                return new MockMultipartFile("file", documentName, contentType, stream);
+                return new MockMultipartFile("file", documentName.toString(), contentType, stream);
             }
         } catch (ErrorResponseException e) {
             log.error("Error response from MinIO: " + e.getMessage(), e);
