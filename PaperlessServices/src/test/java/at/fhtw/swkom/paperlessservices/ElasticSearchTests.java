@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Slf4j
 class ElasticSearchTests {
-    /*
     private Document doc;
 
     @Autowired
@@ -230,5 +229,4 @@ class ElasticSearchTests {
         assertNotNull(result);
         assertFalse(result.isPresent());
     }
-*/
 }

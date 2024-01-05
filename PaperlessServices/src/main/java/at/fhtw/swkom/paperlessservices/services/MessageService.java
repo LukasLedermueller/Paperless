@@ -33,7 +33,7 @@ public class MessageService {
             Document document = documentRepository.getDocumentById(Integer.parseInt(documentId));
             MultipartFile storedDocument = new MinIOService().getDocumentFile(document.getOriginalFileName().orElse(""));
             String extractedText = new OCRService().performOcr(storedDocument);
-            log.info("Extracted text: " + extractedText);
+            log.debug("Extracted text: " + extractedText);
             //create doc for elasticsearch
             document.setContent(JsonNullable.of(extractedText));
 
