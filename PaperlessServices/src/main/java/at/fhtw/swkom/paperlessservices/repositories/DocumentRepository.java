@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @Component
@@ -54,8 +56,7 @@ public class DocumentRepository {
                     document.setId(resultSet.getInt("id"));
                     document.setOriginalFileName(JsonNullable.of(resultSet.getString("original_filename")));
                     document.setContent(JsonNullable.of(resultSet.getString("content")));
-                    document.setTitle(JsonNullable.of(resultSet.getString("filename")));
-                    System.out.println("ORIGINAL FILENAME: " + resultSet.getString("filename"));
+                    document.setTitle(JsonNullable.of(resultSet.getString("title")));
                     return document;
                 }
             }
