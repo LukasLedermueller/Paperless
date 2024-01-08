@@ -2,6 +2,9 @@ package at.fhtw.swkom.paperless.controller;
 
 import at.fhtw.swkom.paperless.entities.DocumentsDocument;
 import at.fhtw.swkom.paperless.repositories.DocumentsDocumentRepository;
+import at.fhtw.swkom.paperless.services.documents.DocumentsService;
+import at.fhtw.swkom.paperless.services.dto.GetDocuments200Response;
+import at.fhtw.swkom.paperless.services.dto.GetDocuments200ResponseResultsInner;
 import at.fhtw.swkom.paperless.services.rabbitmq.RabbitMQService;
 import at.fhtw.swkom.paperless.services.minio.MinIOService;
 
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import jakarta.annotation.Generated;
@@ -35,11 +40,13 @@ public class ApiApiController implements ApiApi {
 
     private final NativeWebRequest request;
     private final DocumentsDocumentRepository documentsDocumentRepository;
+    private final DocumentsService documentsService;
 
     @Autowired
-    public ApiApiController(NativeWebRequest request, DocumentsDocumentRepository documentsDocumentRepository) {
+    public ApiApiController(NativeWebRequest request, DocumentsDocumentRepository documentsDocumentRepository, DocumentsService documentsService) {
         this.request = request;
         this.documentsDocumentRepository = documentsDocumentRepository;
+        this.documentsService = documentsService;
     }
 
     @Override
@@ -58,6 +65,10 @@ public class ApiApiController implements ApiApi {
                 DocumentsDocument documentsDocument = new DocumentsDocument();
                 documentsDocument.setOriginalFilename(document.getOriginalFilename());
                 documentsDocument.setFilename(document.getOriginalFilename());
+                documentsDocument.setTitle(document.getOriginalFilename());
+                documentsDocument.setCreated(OffsetDateTime.now());
+                documentsDocument.setAdded(OffsetDateTime.now());
+                documentsDocument.setModified(OffsetDateTime.now());
 
                 DocumentsDocument savedDocumentsDocument = this.documentsDocumentRepository.save(documentsDocument);
                 System.out.println("------------ savedDocumentsDocument start -----------");
@@ -75,48 +86,21 @@ public class ApiApiController implements ApiApi {
         }
     }
 
-    /* @Override
-    public ResponseEntity<List<DocumentsDocument>> getDocuments(Integer page, Integer pageSize, String query, String ordering, List<Integer> tagsIdAll, Integer documentTypeId, Integer storagePathIdIn, Integer correspondentId, Boolean truncateContent) {
-        List<DocumentsDocument> list = documentsDocumentRepository.findAll();
-        System.out.println(list.size());
-        return ResponseEntity.ok(list);
-    }; */
+    @Override
+    public ResponseEntity<GetDocuments200Response> getDocuments(Integer page, Integer pageSize, String query, String ordering, List<Integer> tagsIdAll, Integer documentTypeId, Integer storagePathIdIn, Integer correspondentId, Boolean truncateContent) {
+        List all = new ArrayList(Arrays.asList(5,5));
+
+        List<GetDocuments200ResponseResultsInner> documents = documentsService.getDocuments200ResponseResultsInnerList(query);
+        GetDocuments200Response response = new GetDocuments200Response(documents.size(), 6, 1, all, documents);
+        return ResponseEntity.ok(response);
+    };
+
     @Override
     public ResponseEntity<org.springframework.core.io.Resource> downloadDocument(Integer id, Boolean original) {
         try {
-            String minioEndpoint = "http://MinIO:9000";
-            String accessKey = "minioadmin";
-            String secretKey = "minioadmin";
-            String bucketName = "documents";
-            DocumentsDocument document = documentsDocumentRepository.getById(id);
-            String fileName = document.getFilename();
-            System.out.println(id);
-            MinioClient minioClient = MinioClient.builder()
-                    .endpoint(minioEndpoint)
-                    .credentials(accessKey, secretKey)
-                    .build();
-            // Perform the getObject operation
-            GetObjectArgs getObjectArgs = GetObjectArgs.builder()
-                    .bucket(bucketName)
-                    .object(fileName)
-                    .build();
-
-            InputStream stream = minioClient.getObject(getObjectArgs);
-
-            // Set headers for the response
-            HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
-            headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
-
-            // Return the file as a response entity
-            return ResponseEntity
-                    .ok()
-                    .headers(headers)
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .body(new InputStreamResource(stream));
+            return documentsService.uploadDocument(id, original);
         } catch (Exception e) {
             e.printStackTrace();
-            // Handle exceptions appropriately
             return ResponseEntity
                     .status(500)
                     .body(null);
