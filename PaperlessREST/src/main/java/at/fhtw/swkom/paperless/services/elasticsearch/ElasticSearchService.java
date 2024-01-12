@@ -1,6 +1,7 @@
 package at.fhtw.swkom.paperless.services.elasticsearch;
 
 import at.fhtw.swkom.paperless.config.ElasticSearchConfig;
+import at.fhtw.swkom.paperless.exceptions.ElasticSearchException;
 import at.fhtw.swkom.paperless.services.dto.Document;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.Result;
@@ -79,41 +80,45 @@ public class ElasticSearchService implements SearchIndexService {
     }
 
     @Override
-    public List<Integer> searchDocuments(String searchString) {
+    public List<Integer> searchDocuments(String searchString) throws ElasticSearchException {
         List<Integer> hits = new ArrayList<>();
         try {
             List<String> fields = new ArrayList<>(Arrays.asList("title", "content", "original_file_name"));
             for(String field: fields) {
                 hits.addAll(getHits(field, searchString));
             }
+            HashSet<Integer> uniqueSet = new HashSet<>(hits);
+            List<Integer> hitsWithoutDuplicates = new ArrayList<>(uniqueSet);
+            return hitsWithoutDuplicates;
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw new ElasticSearchException(e.getMessage());
         }
-
-        HashSet<Integer> uniqueSet = new HashSet<>(hits);
-        List<Integer> hitsWithoutDuplicates = new ArrayList<>(uniqueSet);
-        return hitsWithoutDuplicates;
     };
 
     private List<Integer> getHits(String field, String searchString) throws Exception {
-        List<Integer> hitsToReturn = new ArrayList<>();
-        SearchResponse<Document> response = esClient.search(s -> s
-                        .index("documents")
-                        .query(q -> q
-                                .match(m -> m
-                                        .field(field)
-                                        .query(searchString)
-                                )
-                        ),
-                Document.class
-        );
-        List<Hit<Document>> hits = response.hits().hits();
-        for (Hit<Document> hit: hits) {
-            Document document = hit.source();
-            log.debug("Found document " + document.getId() + ", score " + hit.score() + " with field " + field);
-            hitsToReturn.add(document.getId());
+        try {
+            List<Integer> hitsToReturn = new ArrayList<>();
+            SearchResponse<Document> response = esClient.search(s -> s
+                            .index("documents")
+                            .query(q -> q
+                                    .match(m -> m
+                                            .field(field)
+                                            .query(searchString)
+                                    )
+                            ),
+                    Document.class
+            );
+            List<Hit<Document>> hits = response.hits().hits();
+            for (Hit<Document> hit : hits) {
+                Document document = hit.source();
+                log.info("Found document " + document.getId() + ", score " + hit.score() + " with field " + field);
+                hitsToReturn.add(document.getId());
+            }
+            return hitsToReturn;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
-        return hitsToReturn;
     }
 }

@@ -1,6 +1,7 @@
 package at.fhtw.swkom.paperlessservices.services;
 
 import at.fhtw.swkom.paperlessservices.config.ElasticSearchConfig;
+import at.fhtw.swkom.paperlessservices.exceptions.ElasticSearchException;
 import at.fhtw.swkom.paperlessservices.services.dto.Document;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.Result;
@@ -33,23 +34,27 @@ public class ElasticSearchService implements SearchIndexService {
     }
 
     @Override
-    public Result indexDocument(Document document) throws IOException {
-        // do indexing with ElasticSearch
-        IndexResponse response = esClient.index(i -> i
-                .index(ElasticSearchConfig.DOCUMENTS_INDEX_NAME)
-                .id(document.getId().toString())
-                .document(document)
-        );
-        String logMsg = "Indexed document " + document.getId() + ": result=" + response.result() + ", index=" + response.index();
-        if ( response.result()!=Result.Created && response.result()!=Result.Updated )
-            log.error("Failed to " + logMsg);
-        else
-            log.info(logMsg);
-        return response.result();
+    public Result indexDocument(Document document) throws ElasticSearchException {
+        try {
+            IndexResponse response = esClient.index(i -> i
+                    .index(ElasticSearchConfig.DOCUMENTS_INDEX_NAME)
+                    .id(document.getId().toString())
+                    .document(document)
+            );
+            String logMsg = "Indexed document " + document.getId() + ": result=" + response.result() + ", index=" + response.index();
+            if (response.result() != Result.Created && response.result() != Result.Updated)
+                throw new Exception("Failed to " + logMsg);
+            else
+                log.info(logMsg);
+            return response.result();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ElasticSearchException(e.getMessage());
+        }
     }
 
     @Override
-    public Optional<Document> getDocumentById(int id) {
+    public Optional<Document> getDocumentById(int id) throws ElasticSearchException {
         try {
             GetResponse<Document> response = esClient.get(g -> g
                             .index(ElasticSearchConfig.DOCUMENTS_INDEX_NAME)
@@ -58,8 +63,9 @@ public class ElasticSearchService implements SearchIndexService {
             );
             return (response.found() && response.source()!=null) ? Optional.of(response.source()) : Optional.empty();
         } catch (IOException e) {
-            log.error("Failed to get document id=" + id + " from elasticsearch: " + e);
-            return Optional.empty();
+            e.printStackTrace();
+            throw new ElasticSearchException("Failed to get document id=" + id + " from elasticsearch: " + e);
+            // return Optional.empty();
         }
     }
 

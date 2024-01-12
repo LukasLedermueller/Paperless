@@ -207,13 +207,13 @@ class ElasticSearchTests {
 
 
     @Test
-    void indexDocumentTest() throws IOException {
+    void indexDocumentTest() throws Exception {
         var result = esService.indexDocument(doc);
         assertEquals(Result.Created, result);
     }
 
     @Test
-    void getDocumentById_found() throws IOException {
+    void getDocumentById_found() throws Exception {
         var resultIndexed = esService.indexDocument(doc);
         assertEquals(Result.Created, resultIndexed);
 
@@ -224,7 +224,7 @@ class ElasticSearchTests {
     }
 
     @Test
-    void getDocumentById_notFound() {
+    void getDocumentById_notFound() throws Exception {
         Optional<Document> result = esService.getDocumentById(-1);
         assertNotNull(result);
         assertFalse(result.isPresent());
