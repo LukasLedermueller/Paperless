@@ -1,5 +1,6 @@
 package at.fhtw.swkom.paperless.services.elasticsearch;
 
+import at.fhtw.swkom.paperless.exceptions.ElasticSearchException;
 import at.fhtw.swkom.paperless.services.dto.Document;
 import co.elastic.clients.elasticsearch._types.Result;
 
@@ -14,5 +15,6 @@ public interface SearchIndexService {
 
     boolean deleteDocumentById(int id);
 
-    List<Integer> searchDocuments(String searchString);
+    List<Integer> searchDocuments(String searchString) throws ElasticSearchException;
+
 }

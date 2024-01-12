@@ -1,6 +1,9 @@
 package at.fhtw.swkom.paperlessservices.repositories;
 
+import at.fhtw.swkom.paperlessservices.exceptions.DocumentNotFoundException;
 import at.fhtw.swkom.paperlessservices.services.dto.Document;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,13 +29,14 @@ public class DocumentRepository {
     String password="postgres";
 
     public DocumentRepository() {}
-    public int updateDocumentContentById(String content, Integer id) {
+    public int updateDocumentContentById(String content, String fileName, Integer id) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String updateQuery = "UPDATE documents_document SET content = ? WHERE id = ?";
+            String updateQuery = "UPDATE documents_document SET content = ?, archive_filename = ? WHERE id = ?";
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
                 preparedStatement.setString(1, content);
-                preparedStatement.setInt(2, id);
+                preparedStatement.setString(2, fileName);
+                preparedStatement.setInt(3, id);
 
                 int affectedRows = preparedStatement.executeUpdate();
                 return affectedRows;
@@ -43,7 +47,7 @@ public class DocumentRepository {
 
         return 0;
     }
-    public Document getDocumentById(Integer id) {
+    public Document getDocumentById(Integer id) throws Exception {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             String selectQuery = "SELECT * FROM documents_document WHERE id = ?";
 
@@ -58,12 +62,16 @@ public class DocumentRepository {
                     document.setContent(JsonNullable.of(resultSet.getString("content")));
                     document.setTitle(JsonNullable.of(resultSet.getString("title")));
                     return document;
+                } else {
+                    throw new DocumentNotFoundException("Document with id " + id + " not found");
                 }
             }
+        } catch (DocumentNotFoundException e) {
+            e.printStackTrace();
+            throw new EntityNotFoundException(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
+            throw new Exception(e.getMessage());
         }
-
-        return null;
     }
 }

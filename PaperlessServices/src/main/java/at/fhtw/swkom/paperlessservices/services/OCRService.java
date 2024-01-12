@@ -1,5 +1,6 @@
 package at.fhtw.swkom.paperlessservices.services;
 
+import at.fhtw.swkom.paperlessservices.exceptions.OCRException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class OCRService {
 
     public String performOcr(MultipartFile file) throws Exception {
         try {
+            log.debug("Perform OCR on file with filename " + file.getOriginalFilename());
             PDDocument document = Loader.loadPDF(file.getBytes());
             String strippedText = extractTextFromScannedDocument(document);
 
@@ -43,7 +45,7 @@ public class OCRService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(e.getMessage());
+            throw new OCRException(e.getMessage());
         }
     }
 
