@@ -7,15 +7,17 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.Result;
 import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import co.elastic.clients.elasticsearch.core.search.TotalHits;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
 
-@Component
+
+@Service
 @Slf4j
 public class ElasticSearchService implements SearchIndexService {
     private final ElasticsearchClient esClient;
@@ -65,22 +67,22 @@ public class ElasticSearchService implements SearchIndexService {
     }
 
     @Override
-    public boolean deleteDocumentById(int id) {
+    public void deleteDocumentById(int id) throws Exception {
         DeleteResponse result = null;
         try {
             result = esClient.delete(d -> d.index(ElasticSearchConfig.DOCUMENTS_INDEX_NAME).id(String.valueOf(id)));
         } catch (IOException e) {
-            log.warn("Failed to delete document id=" + id + " from elasticsearch: " + e);
+            throw new Exception("Failed to delete document id=" + id + " from elasticsearch: " + e);
         }
         if (result == null)
-            return false;
+            throw new EntityNotFoundException("Can't find document with id " + id);
         if (result.result() != Result.Deleted)
             log.warn(result.toString());
-        return result.result() == Result.Deleted;
     }
 
     @Override
     public List<Integer> searchDocuments(String searchString) throws ElasticSearchException {
+
         List<Integer> hits = new ArrayList<>();
         try {
             List<String> fields = new ArrayList<>(Arrays.asList("title", "content", "original_file_name"));

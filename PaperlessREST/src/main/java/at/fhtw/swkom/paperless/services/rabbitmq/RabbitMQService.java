@@ -1,12 +1,10 @@
 package at.fhtw.swkom.paperless.services.rabbitmq;
 
-import at.fhtw.swkom.paperless.entities.DocumentsDocument;
+import at.fhtw.swkom.paperless.config.RabbitMQConfig;
 import at.fhtw.swkom.paperless.exceptions.RabbitMQException;
-import at.fhtw.swkom.paperless.repositories.DocumentsDocumentRepository;
 import com.rabbitmq.client.DeliverCallback;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,7 +24,7 @@ public class RabbitMQService {
                 int id = Integer.parseInt(numbers[0]);
                 int errorCode = Integer.parseInt(numbers[1]);
                 if (errorCode == 0) {
-                    log.info("\nYou received: " + id + "got processed");
+                    log.info("\nYou received: " + id + " got processed");
                 } else {
                     log.warn("An error occurred while processing document with id " + id);
                 }

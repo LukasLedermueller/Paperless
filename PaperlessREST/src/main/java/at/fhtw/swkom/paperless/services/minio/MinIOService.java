@@ -8,6 +8,7 @@ import io.minio.*;
 import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,10 +17,17 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @Service
 public class MinIOService {
-    private String minioEndpoint = "http://MinIO:9000";
-    private String accessKey = "minioadmin";
-    private String secretKey = "minioadmin";
-    private String bucketName = "documents";
+
+    @Value("${minio.endpoint}")
+    private String minioEndpoint;
+    @Value("${minio.port}")
+    private String port;
+    @Value("${minio.accessKey}")
+    private String accessKey;
+    @Value("${minio.secretKey}")
+    private String secretKey;
+    @Value("${minio.bucketName}")
+    private String bucketName;
 
     public MinIOService() {
     }
@@ -28,7 +36,7 @@ public class MinIOService {
 
         try {
             MinioClient minioClient = MinioClient.builder()
-                    .endpoint(minioEndpoint)
+                    .endpoint(minioEndpoint + ":" + port)
                     .credentials(accessKey, secretKey)
                     .build();
 
@@ -55,7 +63,7 @@ public class MinIOService {
     public InputStream getFileInputStream(String fileName) throws Exception {
         try {
             MinioClient minioClient = MinioClient.builder()
-                    .endpoint(minioEndpoint)
+                    .endpoint(minioEndpoint + ":" + port)
                     .credentials(accessKey, secretKey)
                     .build();
 
@@ -74,7 +82,7 @@ public class MinIOService {
     public void deleteDocumentByFilename(String fileName) throws Exception {
         try {
             MinioClient minioClient = MinioClient.builder()
-                    .endpoint(minioEndpoint)
+                    .endpoint(minioEndpoint + ":" + port)
                     .credentials(accessKey, secretKey)
                     .build();
             minioClient.removeObject(

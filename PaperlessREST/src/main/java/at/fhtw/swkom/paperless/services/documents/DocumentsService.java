@@ -10,8 +10,8 @@ import at.fhtw.swkom.paperless.services.dto.UpdateDocumentRequest;
 import at.fhtw.swkom.paperless.services.elasticsearch.SearchIndexService;
 import at.fhtw.swkom.paperless.services.minio.MinIOService;
 import at.fhtw.swkom.paperless.services.rabbitmq.RabbitMQService;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -201,9 +201,11 @@ public class DocumentsService {
             log.info("Updated document with id " + id);
             return updateDocument200Response;
         } catch (DocumentNotFoundException | EntityNotFoundException e) {
+            e.printStackTrace();
             log.warn(e.getMessage());
             throw new EntityNotFoundException(e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e.getMessage());
             throw new Exception(e.getMessage());
         }
