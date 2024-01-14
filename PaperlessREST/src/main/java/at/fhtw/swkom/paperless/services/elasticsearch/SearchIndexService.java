@@ -13,7 +13,7 @@ public interface SearchIndexService {
 
     Optional<Document> getDocumentById(int id);
 
-    boolean deleteDocumentById(int id);
+    void deleteDocumentById(int id) throws Exception;
 
     List<Integer> searchDocuments(String searchString) throws ElasticSearchException;
 

@@ -5,22 +5,31 @@ import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.openapitools.jackson.nullable.JsonNullableModule;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
+@Slf4j
 @Configuration
+@PropertySource("classpath:application.yaml")
 public class ElasticSearchConfig
 {
-    public static final String DOCUMENTS_INDEX_NAME = "documents";
-
-    private String host = "ElasticSearch";
-    private int port = 9200;
+    public static String DOCUMENTS_INDEX_NAME = "documents";
+    @Value("${elasticsearch.host}")
+    private String host;
+    @Value("${elasticsearch.port}")
+    private int port;
 
     @Bean
     public RestClient getRestClient() {
+        log.info("Elastic search HOST and PORT: " + host + " " + port);
         return RestClient.builder(
                 new HttpHost(host, port)).build();
     }

@@ -1,4 +1,4 @@
-package at.fhtw.swkom.paperless.services.rabbitmq;
+package at.fhtw.swkom.paperless.config;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -15,8 +15,6 @@ public class RabbitMQConfig {
     public static final String ECHO_IN_QUEUE_NAME = "Echo_In";
     public static final String ECHO_OUT_QUEUE_NAME = "Echo_Out";
 
-    public static final String ECHO_MESSAGE_COUNT_PROPERTY_NAME = "MessageCount";
-
     @Bean
     public Queue echoInQueue() {
         return new Queue(ECHO_IN_QUEUE_NAME, false);
@@ -28,7 +26,8 @@ public class RabbitMQConfig {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("RabbitMQ");
+        // CachingConnectionFactory connectionFactory = new CachingConnectionFactory("RabbitMQ");
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
         connectionFactory.setUsername("rabbitmqadmin");
         connectionFactory.setPassword("rabbitmqadmin");
         return connectionFactory;
