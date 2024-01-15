@@ -12,6 +12,8 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// dowload tessdata from github https://github.com/tesseract-ocr/tessdata.git and paste it in the PaperlessServices directory
+// and change file path in OCRService class
 @SpringBootTest
 @Slf4j
 public class OcrTest {
