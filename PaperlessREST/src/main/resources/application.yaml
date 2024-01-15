@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    #url: jdbc:postgresql://paperless-persistence:5432/paperless
-    url: jdbc:postgresql://localhost:5432/paperless
+    url: jdbc:postgresql://paperless-persistence:5432/paperless
+    #url: jdbc:postgresql://localhost:5432/paperless
     username: postgres
     password: postgres
 
@@ -27,18 +27,19 @@ spring:
 
 rabbitmq:
   host: RabbitMQ
+  #host: localhost
   credentials: rabbitmqadmin
 
 minio:
-  #endpoint: http://MinIO
-  endpoint: http://localhost
+  endpoint: http://MinIO
+  #endpoint: http://localhost
   port: 9000
   accessKey: minioadmin
   secretKey: minioadmin
   bucketName: documents
 
 elasticsearch:
-  #host: ElasticSearch
-  host: localhost
+  host: ElasticSearch
+  #host: localhost
   port: 9200
 
