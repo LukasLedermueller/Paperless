@@ -141,10 +141,8 @@ public class DocumentsService {
         try {
             DocumentsDocument documentToDelete = documentsDocumentRepository.getReferenceById(id);
             if (documentToDelete == null) {
-                log.warn("Document with id " + id + " not found");
                 throw new DocumentNotFoundException("Document with id " + id + " not found");
             } else if (documentToDelete.getArchiveFilename() == null) {
-                log.warn("Document with id " + id + " not yet processed");
                 throw new DocumentNotProcessedException("Document with id " + id + " not yet processed");
             }
             documentsDocumentRepository.deleteById(id);
@@ -154,6 +152,9 @@ public class DocumentsService {
         } catch (DocumentNotFoundException | EntityNotFoundException e) {
             log.warn(e.getMessage());
             throw new EntityNotFoundException(e.getMessage());
+        } catch (DocumentNotProcessedException e) {
+            log.warn(e.getMessage());
+            throw new DocumentNotProcessedException(e.getMessage());
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new Exception(e.getMessage());

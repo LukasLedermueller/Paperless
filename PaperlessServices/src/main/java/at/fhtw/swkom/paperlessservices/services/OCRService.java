@@ -27,6 +27,8 @@ public class OCRService {
 
     // @Value("${ocr.tessdata}")
     private String TESSERACT_DATA_PATH = "/usr/share/tesseract-ocr/4.00/tessdata/";
+    // dowload tessdata from github https://github.com/tesseract-ocr/tessdata.git and paste it in the PaperlessServices directory
+    // private String TESSERACT_DATA_PATH = "tessdata/";
 
     public String performOcr(MultipartFile file) throws Exception {
         try {
