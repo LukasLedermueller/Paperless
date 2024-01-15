@@ -1005,7 +1005,7 @@ public interface ApiApi {
         produces = { "application/json" }
     )
 
-    default ResponseEntity<List<DocumentsDocument>> getDocuments(
+    default ResponseEntity<GetDocuments200Response> getDocuments(
         @Parameter(name = "Page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "Page", required = false) Integer page,
         @Parameter(name = "page_size", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page_size", required = false) Integer pageSize,
         @Parameter(name = "query", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "query", required = false) String query,

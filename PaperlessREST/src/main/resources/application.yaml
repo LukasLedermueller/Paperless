@@ -3,29 +3,42 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://paperless-persistence:5432/paperless
+    #url: jdbc:postgresql://paperless-persistence:5432/paperless
+    url: jdbc:postgresql://localhost:5432/paperless
     username: postgres
     password: postgres
 
   jpa:
     generate-ddl: true
-    show-sql: true
+    show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop # update
+      ddl-auto: update #create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-        show_sql: true
+        show_sql: false
 
   jackson:
     date-format: 'at.fhtw.swkom.paperless.services.RFC3339DateFormat'
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
+rabbitmq:
+  host: RabbitMQ
+  credentials: rabbitmqadmin
+
 minio:
-  endpoint: http://MinIO:9000
+  #endpoint: http://MinIO
+  endpoint: http://localhost
+  port: 9000
   accessKey: minioadmin
   secretKey: minioadmin
-  bucketName: documentBucket
+  bucketName: documents
+
+elasticsearch:
+  #host: ElasticSearch
+  host: localhost
+  port: 9200
+

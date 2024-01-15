@@ -41,13 +41,12 @@ public class MessageService {
             searchIndexService.indexDocument(document);
 
             log.debug("update document with id: " + documentId);
-            documentRepository.updateDocumentContentById(extractedText, Integer.parseInt(documentId));
+            documentRepository.updateDocumentContentById(extractedText, document.getOriginalFileName().orElse("-"), Integer.parseInt(documentId));
+            rabbit.convertAndSend(RabbitMQConfig.ECHO_OUT_QUEUE_NAME, documentId + "-" + 0);
+            log.info("Sent Message: " + documentId + " got processed");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            log.error(e.getMessage());
+            rabbit.convertAndSend(RabbitMQConfig.ECHO_OUT_QUEUE_NAME, documentId + "-" + 1);
         }
-
-        rabbit.convertAndSend(RabbitMQConfig.ECHO_OUT_QUEUE_NAME, documentId + " got processed");
-        log.info("Sent Message: " + documentId + " got processed");
     }
 }

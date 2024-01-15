@@ -1,5 +1,7 @@
 package at.fhtw.swkom.paperlessservices.services;
 
+import at.fhtw.swkom.paperlessservices.exceptions.MinioException;
+import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
 import io.minio.*;
 import io.minio.errors.ErrorResponseException;
 import lombok.Getter;
@@ -22,10 +24,9 @@ public class MinIOService {
     String secretKey = "minioadmin";
     String bucketName = "documents";
 
-    public MultipartFile getDocumentFile(String documentName) {
-        log.info("documentname: " + documentName.toString());
+    public MultipartFile getDocumentFile(String documentName) throws MinioException {
         try {
-
+            log.debug("try to get document with name " + documentName.toString());
             MinioClient minioClient = MinioClient.builder()
                     .endpoint(minioEndpoint)
                     .credentials(accessKey, secretKey)
@@ -52,12 +53,14 @@ public class MinIOService {
                 return new MockMultipartFile("file", documentName.toString(), contentType, stream);
             }
         } catch (ErrorResponseException e) {
-            log.error("Error response from MinIO: " + e.getMessage(), e);
+            e.printStackTrace();
+            throw new MinioException("Error response from MinIO: " + e.getMessage());
         } catch (IOException e) {
-            log.error("Error reading stream or fetching metadata from MinIO: " + e.getMessage(), e);
+            e.printStackTrace();
+            throw new MinioException("Error reading stream or fetching metadata from MinIO: " + e.getMessage());
         } catch (Exception e) {
-            log.error("Error fetching document file from MinIO: " + e.getMessage(), e);
+            e.printStackTrace();
+            throw new MinioException("Error fetching document file from MinIO: " + e.getMessage());
         }
-        return null;
     }
 }

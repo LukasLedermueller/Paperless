@@ -14,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,8 +22,7 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class DocumentMapperTest {
@@ -89,15 +87,6 @@ class DocumentMapperTest {
         documentsDocument.setStoragePath(documentsStoragepath);
         documentsDocument.setDocumentDocumentsDocumentTagses(Set.of(documentsDocumentTag1, documentsDocumentTag2));
 
-        // TODO:
-        // String checksum
-        // String storageType
-        // String filename
-        // String mimeType
-        // String archiveChecksum
-        // AuthUser owner
-        // Set<DocumentsNote> documentDocumentsNotes
-
         DocumentDto expectedDocumentDto = new DocumentDto();
         expectedDocumentDto.setId(id);
         expectedDocumentDto.setTitle(JsonNullable.of(title));
@@ -115,11 +104,11 @@ class DocumentMapperTest {
 
         DocumentDto documentDto = documentMapper.entityToDto(documentsDocument);
 
-        System.out.println("Expected -----------------");
+        /*System.out.println("Expected -----------------");
         System.out.println(expectedDocumentDto);
 
         System.out.println("Actual -----------------");
-        System.out.println(documentDto);
+        System.out.println(documentDto);*/
 
         // NOTE: compare parameters individually instead of comparing expectedDocumentDto to documentDto to prevent race condition errors
         // comparing expectedDocumentDto to documentDto can result in unsorted documentTag lists and may fail
@@ -209,22 +198,13 @@ class DocumentMapperTest {
         expectedDocumentsDocument.setStoragePath(documentsStoragepath);
         expectedDocumentsDocument.setDocumentDocumentsDocumentTagses(Set.of(documentsDocumentTag1, documentsDocumentTag2));
 
-        // TODO:
-        // String checksum
-        // String storageType
-        // String filename
-        // String mimeType
-        // String archiveChecksum
-        // AuthUser owner
-        // Set<DocumentsNote> documentDocumentsNotes
-
         DocumentsDocument documentsDocument = documentMapper.dtoToEntity(documentDto);
 
-        System.out.println("Expected -----------------");
+        /*System.out.println("Expected -----------------");
         System.out.println(expectedDocumentsDocument);
 
         System.out.println("Actual -----------------");
-        System.out.println(documentsDocument);
+        System.out.println(documentsDocument);*/
 
         // NOTE: compare parameters individually instead of comparing expectedDocumentsDocument to documentsDocument to prevent race condition errors
         // comparing expectedDocumentDto to documentsDocument can result in unsorted documentTag lists and thus may fail
