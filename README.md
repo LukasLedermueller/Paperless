@@ -15,4 +15,4 @@ Paperless-ngx is a community-supported open-source document management system th
 ## Use cases
 * Upload and manage documents
 * Search and filter function using  ElasticSearch
-* Manage Documents
+* Download and preview documents
